@@ -1,5 +1,4 @@
 import http.client
-import link
 import linkRequestResult
 import socket
 

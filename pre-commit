@@ -8,8 +8,12 @@ TEST_RESULT=$?
 pyflakes .
 PYFLAKES_RESULT=$?
 
-# python test runner will set exit code appropriately
-if ($TEST_RESULT || $PYFLAKES_RESULT); then
+if [[ $TEST_RESULT = 1 ]] || [[ "$PYFLAKES_RESULT" = 1 ]]
+then
+  echo ""
+  echo "**********************"
+  echo "*** Commit blocked ***"
+  echo "**********************"
   exit 1
 fi
 

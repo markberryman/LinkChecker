@@ -7,7 +7,6 @@ import linkFilterProcessor
 import linkProcessor
 import linkTransform
 import linkTransformProcessor
-import linkType
 import pLinkRequester
 import queue
 import resourceGetter

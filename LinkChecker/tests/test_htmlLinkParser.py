@@ -1,5 +1,4 @@
 import htmlLinkParser
-import link
 import linkType
 import unittest
 

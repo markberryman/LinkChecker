@@ -1,4 +1,3 @@
-import link
 import linkRequest
 import linkRequestResult
 import resourceGetter
