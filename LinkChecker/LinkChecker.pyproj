@@ -52,5 +52,8 @@
   <ItemGroup>
     <Folder Include="tests\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Todo.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
