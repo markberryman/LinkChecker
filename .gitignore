@@ -6,6 +6,7 @@ Todo.txt
 
 TestResults/
 
+TestWebApplication/bin/*
 TestWebApplication/obj/*
 
 packages/

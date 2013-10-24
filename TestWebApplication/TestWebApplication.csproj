@@ -57,6 +57,13 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="alinkwithinvalidmarkup.html" />
+    <Content Include="arelativelink.html" />
+    <Content Include="avalidlink.html" />
+    <Content Include="avalidlinkofdepthtwo.html" />
+    <Content Include="image.png" />
+    <Content Include="Index.html" />
+    <Content Include="style.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -83,7 +90,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>64662</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:35944/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
