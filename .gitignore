@@ -10,5 +10,8 @@ TestWebApplication/obj/*
 
 packages/
 
+# python cache files
+__pycache__
+
 # VS Python performance testing related files
 *.pyperf

@@ -22,7 +22,35 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="htmlLinkParser.py" />
+    <Compile Include="link.py" />
     <Compile Include="LinkChecker.py" />
+    <Compile Include="linkFilter.py" />
+    <Compile Include="linkFilterProcessor.py" />
+    <Compile Include="linkProcessor.py" />
+    <Compile Include="linkRequest.py" />
+    <Compile Include="linkRequestResult.py" />
+    <Compile Include="linkTransform.py" />
+    <Compile Include="linkTransformProcessor.py" />
+    <Compile Include="linkType.py" />
+    <Compile Include="main.py" />
+    <Compile Include="pLinkRequester.py" />
+    <Compile Include="resourceGetter.py" />
+    <Compile Include="tests\linkCheckerTests.py" />
+    <Compile Include="tests\linkFilterProcessorTests.py" />
+    <Compile Include="tests\linkFilterTests.py" />
+    <Compile Include="tests\linkProcessorTests.py" />
+    <Compile Include="tests\linkTransformProcessorTests.py" />
+    <Compile Include="tests\linkTransformTests.py" />
+    <Compile Include="tests\pLinkRequesterTests.py" />
+    <Compile Include="tests\test_htmlLinkParser.py" />
+    <Compile Include="tests\test_resourceGetter.py" />
+    <Compile Include="tests\test_urlRequester.py" />
+    <Compile Include="tests\__init__.py" />
+    <Compile Include="urlRequester.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="tests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
