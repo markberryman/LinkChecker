@@ -1,14 +1,16 @@
 #!/bin/sh
 
 # run tests
-TEST_RESULT = python -m unittest discover -s LinkChecker
+python -m unittest discover -s LinkChecker
+TEST_RESULT=$?
 
 # run pyflakes
-PYFLAKES_RESULT = pyflakes .
+pyflakes .
+PYFLAKES_RESULT=$?
 
 # python test runner will set exit code appropriately
-if (TEST_RESULT || PYFLAKES_RESULT)
-then
+if ($TEST_RESULT || $PYFLAKES_RESULT); then
   exit 1
-else
-  exit 0
+fi
+
+exit 0
