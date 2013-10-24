@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# run tests
+python -m unittest discover -s LinkChecker
+
+# python test runner will set exit code appropriately
+exit $?
