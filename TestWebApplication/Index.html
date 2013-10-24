@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>    
+    <a href="http://localhost:35944/avalidlink.html"></a>
+    <a href="http://localhost:35944/abrokenlink.html"></a>
+    <a href="http://localhost:35944/alinkwithinvalidmarkup.html"></a>
+    <a href="arelativelink.html"></a>
+    <a href="subdir/arelativelinkinasubdir.html"></a>
+    <!-- link below won't be requested -->
+    <a href="http://www.differentdomain.com/index.html"></a>
+    <a href="mailto:me@foo.com">E-mail</a>
+    
+    <link rel='stylesheet' href='http://localhost:35944/style.css' />
+    <link rel='stylesheet' href='http://localhost:35944/brokenlinktostylesheet.css' />
+    <!-- link below won't be requested -->
+    <link rel="alternate" href='http://localhost:35944/shouldnotbechecked' />
+
+    <img src="http://localhost:35944/image.png" />
+    <img src="http://localhost:35944/brokenlinktoimage.png" />
+</body>
+</html>

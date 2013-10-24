@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "LinkChecker", "LinkChecker\LinkChecker.pyproj", "{D46DC656-8238-4777-B377-052A906D6FFB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApplication", "TestWebApplication\TestWebApplication.csproj", "{A66C5085-FD0C-412A-96B8-ACD3A8BA8D69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{D46DC656-8238-4777-B377-052A906D6FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D46DC656-8238-4777-B377-052A906D6FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D46DC656-8238-4777-B377-052A906D6FFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A66C5085-FD0C-412A-96B8-ACD3A8BA8D69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A66C5085-FD0C-412A-96B8-ACD3A8BA8D69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A66C5085-FD0C-412A-96B8-ACD3A8BA8D69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A66C5085-FD0C-412A-96B8-ACD3A8BA8D69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

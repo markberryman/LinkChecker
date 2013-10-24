@@ -10,6 +10,9 @@ TestWebApplication/obj/*
 
 packages/
 
+# VS user files
+*csproj.user
+
 # python cache files
 __pycache__
 
