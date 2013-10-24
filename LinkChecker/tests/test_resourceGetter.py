@@ -23,7 +23,6 @@ class ResourceGetter_GetResourceTests(unittest.TestCase):
         sut = resourceGetter.ResourceGetter(None)
 
         self.assertRaises(TypeError, sut.get_resource, None)
-        self.assertFalse(True)
 
     def test_SetsResponseStatusCodeAndResponseDataForAnchorTag(self):
         mockRequester = MockRequester()
