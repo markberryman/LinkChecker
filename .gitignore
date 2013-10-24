@@ -1,0 +1,14 @@
+# lint and pyflakes scripts
+lc
+pf
+
+Todo.txt
+
+TestResults/
+
+TestWebApplication/obj/*
+
+packages/
+
+# VS Python performance testing related files
+*.pyperf
