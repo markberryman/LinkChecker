@@ -8,7 +8,7 @@ TEST_RESULT=$?
 pyflakes .
 PYFLAKES_RESULT=$?
 
-if [[ $TEST_RESULT = 1 ]] || [[ "$PYFLAKES_RESULT" = 1 ]]
+if [[ $TEST_RESULT = 1 ]] || [[ $PYFLAKES_RESULT = 1 ]]
 then
   echo ""
   echo "**********************"
