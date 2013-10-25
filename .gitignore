@@ -13,6 +13,7 @@ packages/
 
 # VS user files
 *csproj.user
+*.suo
 
 # python cache files
 __pycache__
