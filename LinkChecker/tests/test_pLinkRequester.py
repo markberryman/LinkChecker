@@ -1,16 +1,9 @@
+import linkRequest
 import pLinkRequester
 import unittest
-
-
-class MockQueue(object):
-    def __init__(self):
-        self.data = []
-
-    def put(self, item):
-        self.data.append(item)
-
-    def get(self):
-        return None
+from unittest.mock import call
+import queue
+from unittest.mock import MagicMock
 
 
 class PLinkRequester_AddWorkTests(unittest.TestCase):
@@ -20,13 +13,15 @@ class PLinkRequester_AddWorkTests(unittest.TestCase):
         self.assertRaises(TypeError, sut.add_work, None)
 
     def test_AddWorkAddsItemToInputQueue(self):
-        dummyQueue = MockQueue()
-        dummyItem = "x"
-        sut = pLinkRequester.PLinkRequester(1, None, dummyQueue, None)
+        mock_queue = queue.Queue()
+        mock_queue.put = MagicMock()
+        dummy_link_request = MagicMock()
+        sut = pLinkRequester.PLinkRequester(
+            1, None, mock_queue, None)
 
-        sut.add_work(dummyItem)
+        sut.add_work(dummy_link_request)
 
-        self.assertEqual(dummyItem, dummyQueue.data[0])
+        mock_queue.put.assert_called_with(dummy_link_request)
 
 
 if __name__ == '__main__':
