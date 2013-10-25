@@ -1,14 +1,9 @@
+from unittest.mock import call
 import link
+import linkFilter
 import linkFilterProcessor
+from unittest.mock import MagicMock
 import unittest
-
-
-class MockFilter(object):
-    def __init__(self, filterFn):
-        self.filterFn = filterFn
-
-    def should_filter(self, link):
-        return self.filterFn(link)
 
 
 class LinkFilterProcessor_ApplyFiltersTests(unittest.TestCase):
@@ -17,29 +12,48 @@ class LinkFilterProcessor_ApplyFiltersTests(unittest.TestCase):
 
         self.assertRaises(TypeError, sut.apply_filters, None)
 
-    def test_ReturnsLinksWhenNoFiltersLeftToApply(self):
-        dummyFilters = []
-        dummyLinks = set([link.Link("a link")])
-        sut = linkFilterProcessor.LinkFilterProcessor(dummyFilters)
+    def test_AppliesFiltersToEveryLinkIfNotFiltered(self):
+        mockFilter1 = linkFilter.LinkFilter()
+        mockFilter2 = linkFilter.LinkFilter()
+        mockFilter1.should_filter = MagicMock(return_value=False)
+        mockFilter2.should_filter = MagicMock(return_value=False)
+        link1 = link.Link("link1")
+        link2 = link.Link("link2")
+        dummyLinks = set([link1, link2])
+        sut = linkFilterProcessor.LinkFilterProcessor(
+            [mockFilter1, mockFilter2])
 
-        result = sut.apply_filters(dummyLinks)
+        sut.apply_filters(dummyLinks)
 
-        self.assertEqual(1, len(result))
+        mockFilter1.should_filter.assert_has_calls(
+            [call("link1"), call("link2")], any_order=True)
+        mockFilter2.should_filter.assert_has_calls(
+            [call("link1"), call("link2")], any_order=True)
+    
+    def test_FiltersLinks(self):
+        mockFilter1 = linkFilter.LinkFilter()
+        mockFilter1.should_filter = MagicMock(return_value=True)
+        link1 = link.Link("link1")
+        dummyLinks = set([link1])
+        expected = 0
+        sut = linkFilterProcessor.LinkFilterProcessor([mockFilter1])
 
-    def test_AppliesAllFilters(self):
-        dummyFilterIsLowerCase = MockFilter(lambda x: x.islower())
-        dummyFilterIsUpperCase = MockFilter(lambda x: x.isupper())
-        dummyFilters = [dummyFilterIsLowerCase, dummyFilterIsUpperCase]
-        dummyLinks = set([
-                         link.Link("lowercase"),
-                         link.Link("uppercase"),
-                         link.Link("MIXEDcase")
-                         ])
-        sut = linkFilterProcessor.LinkFilterProcessor(dummyFilters)
+        actual = sut.apply_filters(dummyLinks)
 
-        result = sut.apply_filters(dummyLinks)
+        self.assertEqual(expected, len(actual))
+            
+    def test_ReturnsUnfilteredLinks(self):
+        mockFilter1 = linkFilter.LinkFilter()
+        mockFilter1.should_filter = MagicMock(return_value=False)
+        link1 = link.Link("link1")
+        link2 = link.Link("link2")
+        dummyLinks = set([link1, link2])
+        expected = dummyLinks
+        sut = linkFilterProcessor.LinkFilterProcessor([mockFilter1])
 
-        self.assertEqual(1, len(result))
+        actual = sut.apply_filters(dummyLinks)
+
+        self.assertEqual(expected, actual)
 
 
 if __name__ == '__main__':
