@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>d46dc656-8238-4777-b377-052a906d6ffb</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>linkChecker.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
