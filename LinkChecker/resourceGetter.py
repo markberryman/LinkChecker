@@ -4,14 +4,14 @@ import socket
 
 
 class ResourceGetter:
-    def __init__(self, content_requester):
-        self.content_requester = content_requester
+    def __init__(self, url_requester):
+        self.url_requester = url_requester
 
     def make_request(self, url):
         result = None
 
         try:
-            result = self.content_requester.request_url(url)
+            result = self.url_requester.request_url(url)
         except socket.error as msg:
             print("Socket error making request: {}".format(msg))
 
