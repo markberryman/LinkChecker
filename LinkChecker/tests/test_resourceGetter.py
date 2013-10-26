@@ -1,20 +1,10 @@
+import http.client
 import linkRequest
 import linkRequestResult
 import resourceGetter
 import unittest
-
-
-class MockResponse(object):
-    def __init__(self):
-        self.status = 200
-
-    def read(self):
-        return b"hi"
-
-
-class MockRequester(object):
-    def request_url(self, url):
-        return MockResponse()
+from unittest.mock import call
+from unittest.mock import MagicMock
 
 
 class ResourceGetter_GetResourceTests(unittest.TestCase):
@@ -24,26 +14,39 @@ class ResourceGetter_GetResourceTests(unittest.TestCase):
         self.assertRaises(TypeError, sut.get_resource, None)
 
     def test_SetsResponseStatusCodeAndResponseDataForAnchorTag(self):
-        mockRequester = MockRequester()
-        dummyLinkRequest = linkRequest.LinkRequest("url", True)
-        sut = resourceGetter.ResourceGetter(mockRequester)
-        expected = linkRequestResult.LinkRequestResult(
-            dummyLinkRequest.link_url, 200, "hi")
+        mock_link_request = MagicMock()
+        mock_link_request.link_url = "link"
+        mock_link_request.read_response = True
 
-        actual = sut.get_resource(dummyLinkRequest)
+        mock_response = MagicMock()
+        mock_response.status = 200
 
+        sut = resourceGetter.ResourceGetter(None)
+        sut.make_request = MagicMock(return_value=mock_response)
+        sut.read_response = MagicMock(return_value="response data")
+        expected = linkRequestResult.LinkRequestResult("link", 200, "response data")
+
+        actual = sut.get_resource(mock_link_request)
+
+        self.assertEqual(expected.link_url, actual.link_url)
         self.assertEqual(expected.status_code, actual.status_code)
         self.assertEqual(expected.response, actual.response)
 
-    def test_SetsResponseToNoneForLinkRequestNotReadingResponse(self):
-        mockRequester = MockRequester()
-        dummyLinkRequest = linkRequest.LinkRequest("url", False)
-        sut = resourceGetter.ResourceGetter(mockRequester)
-        expected = linkRequestResult.LinkRequestResult(None, None, None)
+    def test_SetsResponseToNoneAndStatusCodeToTimeoutIfNoResponse(self):
+        mock_link_request = MagicMock()
+        mock_link_request.link_url = "link"
 
-        actual = sut.get_resource(dummyLinkRequest)
+        sut = resourceGetter.ResourceGetter(None)
+        sut.make_request = MagicMock(return_value=None)
+        expected = linkRequestResult.LinkRequestResult(
+            "link", http.client.GATEWAY_TIMEOUT, None)
 
+        actual = sut.get_resource(mock_link_request)
+
+        self.assertEqual(expected.link_url, actual.link_url)
+        self.assertEqual(expected.status_code, actual.status_code)
         self.assertEqual(expected.response, actual.response)
+
 
 if __name__ == '__main__':
     unittest.main()
