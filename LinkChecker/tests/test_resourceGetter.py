@@ -1,9 +1,7 @@
 import http.client
-import linkRequest
 import linkRequestResult
 import resourceGetter
 import unittest
-from unittest.mock import call
 from unittest.mock import MagicMock
 
 

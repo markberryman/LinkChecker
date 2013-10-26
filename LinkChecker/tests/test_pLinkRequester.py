@@ -1,7 +1,5 @@
-import linkRequest
 import pLinkRequester
 import unittest
-from unittest.mock import call
 import queue
 from unittest.mock import MagicMock
 
