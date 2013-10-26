@@ -9,7 +9,7 @@ class ResourceGetter_GetResourceTests(unittest.TestCase):
     def test_RaisesTypeErrorIflinkToProcessIsNone(self):
         sut = resourceGetter.ResourceGetter(None)
 
-        self.assertRaises(TypeError, sut.get_resource, None)
+        self.assertRaises(TypeError, sut.process_link_request, None)
 
     def test_SetsResponseStatusCodeAndResponseData(self):
         mock_link_request = MagicMock()
@@ -24,7 +24,7 @@ class ResourceGetter_GetResourceTests(unittest.TestCase):
         sut.read_response = MagicMock(return_value="response data")
         expected = linkRequestResult.LinkRequestResult("link", 200, "response data")
 
-        actual = sut.get_resource(mock_link_request)
+        actual = sut.process_link_request(mock_link_request)
 
         self.assertEqual(expected, actual)
 
@@ -37,7 +37,7 @@ class ResourceGetter_GetResourceTests(unittest.TestCase):
         expected = linkRequestResult.LinkRequestResult(
             "link", http.client.GATEWAY_TIMEOUT, None)
 
-        actual = sut.get_resource(mock_link_request)
+        actual = sut.process_link_request(mock_link_request)
 
         self.assertEqual(expected, actual)
 

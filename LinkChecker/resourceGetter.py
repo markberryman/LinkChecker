@@ -31,7 +31,7 @@ class ResourceGetter:
 
         return result
 
-    def get_resource(self, link_request):
+    def process_link_request(self, link_request):
         """Process the link request object."""
         if (link_request is None):
             raise TypeError("link_request can not be None.")

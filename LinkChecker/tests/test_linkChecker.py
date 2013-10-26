@@ -31,7 +31,7 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
         lt = linkTransformProcessor.LinkTransformProcessor(linkTransformers)
         lp = linkProcessor.LinkProcessor(lfp, lt, html_link_parser)
         plr = pLinkRequester.PLinkRequester(
-            3, resGetter.get_resource, queue.Queue(), queue.Queue())
+            3, resGetter.process_link_request, queue.Queue(), queue.Queue())
         sut = linkChecker.LinkChecker(resGetter, lp, plr, depth)
 
         results = sut.check_links(startLink)
@@ -55,7 +55,7 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
         html_link_parser = htmlLinkParser.HTMLLinkParser()
         lp = linkProcessor.LinkProcessor(None, None, html_link_parser)
         plr = pLinkRequester.PLinkRequester(
-            3, resGetter.get_resource, queue.Queue(), queue.Queue())
+            3, resGetter.process_link_request, queue.Queue(), queue.Queue())
         sut = linkChecker.LinkChecker(resGetter, lp, plr, depth)
 
         results = sut.check_links(startLink)

@@ -34,7 +34,7 @@ linkTransformProcessor = linkTransformProcessor.LinkTransformProcessor(
 linkProcessor = linkProcessor.LinkProcessor(
     linkFilterProcessor, linkTransformProcessor, html_link_parser)
 pLinkRequester = pLinkRequester.PLinkRequester(
-    25, resourceGetter.get_resource, queue.Queue(), queue.Queue())
+    25, resourceGetter.process_link_request, queue.Queue(), queue.Queue())
 
 checker = linkChecker.LinkChecker(
     resourceGetter, linkProcessor, pLinkRequester, depth)
