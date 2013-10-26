@@ -11,7 +11,7 @@ class ResourceGetter_GetResourceTests(unittest.TestCase):
 
         self.assertRaises(TypeError, sut.get_resource, None)
 
-    def test_SetsResponseStatusCodeAndResponseDataForAnchorTag(self):
+    def test_SetsResponseStatusCodeAndResponseData(self):
         mock_link_request = MagicMock()
         mock_link_request.link_url = "link"
         mock_link_request.read_response = True
