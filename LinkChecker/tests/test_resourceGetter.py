@@ -26,9 +26,7 @@ class ResourceGetter_GetResourceTests(unittest.TestCase):
 
         actual = sut.get_resource(mock_link_request)
 
-        self.assertEqual(expected.link_url, actual.link_url)
-        self.assertEqual(expected.status_code, actual.status_code)
-        self.assertEqual(expected.response, actual.response)
+        self.assertEqual(expected, actual)
 
     def test_SetsResponseToNoneAndStatusCodeToTimeoutIfNoResponse(self):
         mock_link_request = MagicMock()
@@ -41,9 +39,7 @@ class ResourceGetter_GetResourceTests(unittest.TestCase):
 
         actual = sut.get_resource(mock_link_request)
 
-        self.assertEqual(expected.link_url, actual.link_url)
-        self.assertEqual(expected.status_code, actual.status_code)
-        self.assertEqual(expected.response, actual.response)
+        self.assertEqual(expected, actual)
 
 
 if __name__ == '__main__':

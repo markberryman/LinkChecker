@@ -5,6 +5,11 @@ class LinkRequestResult(object):
         self.__status_code = status_code
         self.__response = response
 
+    def __eq__(self, other):
+        return ((self.link_url == other.link_url) and
+                (self.status_code == other.status_code) and
+                (self.response == other.response))
+
     @property
     def link_url(self):
         return self.__link_url
