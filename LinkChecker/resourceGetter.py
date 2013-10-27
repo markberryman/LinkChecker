@@ -1,23 +1,12 @@
 import http.client
 import linkRequestResult
-import socket
 
 
 class ResourceGetter:
     def __init__(self, url_requester):
         self.url_requester = url_requester
 
-    def make_request(self, url):
-        result = None
-
-        try:
-            result = self.url_requester.request_url(url)
-        except socket.error as msg:
-            print("Socket error making request: {}".format(msg))
-
-        return result
-
-    def read_response(self, response):
+    def _read_response(self, response):
         result = None
 
         try:
@@ -40,13 +29,13 @@ class ResourceGetter:
         response_data = None
         url = link_request.link_url
 
-        response = self.make_request(url)
+        response = self.url_requester.request_url(url)
 
         if (response is not None):
             result_status_code = response.status
 
             if (link_request.read_response):
-                response_data = self.read_response(response)
+                response_data = self._read_response(response)
         else:
             # something went wrong w/ the request
             result_status_code = http.client.GATEWAY_TIMEOUT

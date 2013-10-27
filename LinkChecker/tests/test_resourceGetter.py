@@ -19,9 +19,11 @@ class ResourceGetter_GetResourceTests(unittest.TestCase):
         mock_response = MagicMock()
         mock_response.status = 200
 
-        sut = resourceGetter.ResourceGetter(None)
-        sut.make_request = MagicMock(return_value=mock_response)
-        sut.read_response = MagicMock(return_value="response data")
+        mock_url_requester = MagicMock()
+        mock_url_requester.request_url = MagicMock(return_value=mock_response)
+
+        sut = resourceGetter.ResourceGetter(mock_url_requester)
+        sut._read_response = MagicMock(return_value="response data")
         expected = linkRequestResult.LinkRequestResult("link", 200, "response data")
 
         actual = sut.process_link_request(mock_link_request)
@@ -29,10 +31,13 @@ class ResourceGetter_GetResourceTests(unittest.TestCase):
         self.assertEqual(expected, actual)
 
     def test_SetsResponseToNoneAndStatusCodeToTimeoutIfNoResponse(self):
+        mock_url_requester = MagicMock()
+        mock_url_requester.request_url = MagicMock(return_value=None)
+
         mock_link_request = MagicMock()
         mock_link_request.link_url = "link"
 
-        sut = resourceGetter.ResourceGetter(None)
+        sut = resourceGetter.ResourceGetter(mock_url_requester)
         sut.make_request = MagicMock(return_value=None)
         expected = linkRequestResult.LinkRequestResult(
             "link", http.client.GATEWAY_TIMEOUT, None)

@@ -1,4 +1,5 @@
 import http.client
+import socket
 from urllib.parse import urlparse
 
 
@@ -9,6 +10,8 @@ class UrlRequester(object):
         self.connTimeout = 5
 
     def request_url(self, url):
+        result = None
+
         if (url is None):
             raise TypeError("URL can not be none.")
 
@@ -23,4 +26,9 @@ class UrlRequester(object):
 
         conn.request("GET", urlParts.path, body=None, headers=headers)
 
-        return conn.getresponse()
+        try:
+            result = conn.getresponse()
+        except socket.error as msg:
+            print("Socket error making request: {}".format(msg))
+        
+        return result
