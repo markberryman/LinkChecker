@@ -10,6 +10,7 @@ class UrlRequester(object):
         self.connTimeout = 5
 
     def request_url(self, url):
+        """Requests a url and returns an HTTPResponse object."""
         result = None
 
         if (url is None):
