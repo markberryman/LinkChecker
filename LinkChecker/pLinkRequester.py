@@ -3,9 +3,9 @@ import threading
 
 class PLinkRequester(object):
     """Parallel link processor."""
-    def __init__(self, num_worker_threads, workFn, input_queue, outputQueue):
+    def __init__(self, num_worker_threads, workFn, input_queue, output_queue):
         self._input_queue = input_queue
-        self.outputQueue = outputQueue
+        self._output_queue = output_queue
         self.num_worker_threads = num_worker_threads
         self.workFn = workFn
 
@@ -19,7 +19,7 @@ class PLinkRequester(object):
         while True:
             workRequest = self._input_queue.get()
             result = self.workFn(workRequest)
-            self.outputQueue.put(result)
+            self._output_queue.put(result)
             # using the built-in queue work tracking
             # method to indicate work completed by thread
             self._input_queue.task_done()
@@ -36,7 +36,7 @@ class PLinkRequester(object):
 
         results = []
 
-        while (self.outputQueue.empty() is False):
-            results.append(self.outputQueue.get())
+        while (self._output_queue.empty() is False):
+            results.append(self._output_queue.get())
 
         return results
