@@ -1,25 +1,19 @@
-import http.client
 import linkRequestResult
 
 
 class LinkRequestProcessor:
     """Processes LinkRequest objects."""
-    def __init__(self, url_requester):
-        self.url_requester = url_requester
+    def __init__(self, url_requester, response_processor):
+        self._url_requester = url_requester
+        self._response_processor = response_processor
 
-    def _read_response(self, response):
-        result = None
+    def _make_request_and_process_response(self, url, read_response):
+        response = self._url_requester.request_url(url)
+        
+        response_data, result_status_code = self._response_processor.process_response(
+            response, read_response)
 
-        try:
-            result = response.read().decode()
-        except UnicodeDecodeError:
-            # going to hit this when response data includes binary
-            # content (e.g. pdf file); instead of trying to filter
-            # out all of these extensions, just swallow the exception
-            # and move on for now
-            pass
-
-        return result
+        return response_data, result_status_code
 
     def process_link_request(self, link_request):
         """Process LinkRequest and returns LinkRequestResult."""
@@ -30,16 +24,8 @@ class LinkRequestProcessor:
         response_data = None
         url = link_request.link_url
 
-        response = self.url_requester.request_url(url)
-
-        if (response is not None):
-            result_status_code = response.status
-
-            if (link_request.read_response):
-                response_data = self._read_response(response)
-        else:
-            # something went wrong w/ the request
-            result_status_code = http.client.GATEWAY_TIMEOUT
+        response_data, result_status_code = self._make_request_and_process_response(
+            url, link_request.read_response)
 
         return linkRequestResult.LinkRequestResult(
             url, result_status_code, response_data)

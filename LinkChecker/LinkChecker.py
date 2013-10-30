@@ -6,8 +6,7 @@ import linkType
 
 class LinkChecker:
     def __init__(
-            self, resourceGetter, linkProcessor, pLinkRequester, maxDepth):
-        self.resourceGetter = resourceGetter
+            self, linkProcessor, pLinkRequester, maxDepth):
         self.linkProcessor = linkProcessor
         self.linksRequested = set()
         # tuples of link url and status code
