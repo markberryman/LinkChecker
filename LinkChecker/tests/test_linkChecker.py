@@ -10,7 +10,7 @@ import linkTransformProcessor
 import linkProcessor
 import pLinkRequester
 import queue
-import resourceGetter
+import linkRequestProcessor
 import unittest
 import urlParseWrapper
 
@@ -25,7 +25,7 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
         url_parse_wrapper = urlParseWrapper.UrlParseWrapper()
         contRequester = urlRequester.UrlRequester(
             http_conn_wrapper, url_parse_wrapper)
-        resGetter = resourceGetter.ResourceGetter(contRequester)
+        resGetter = linkRequestProcessor.LinkRequestProcessor(contRequester)
         linkFilters = set(
             [linkFilter.MailToFilter(),
                 linkFilter.DomainCheckFilter(startLink.url)])
@@ -59,7 +59,7 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
         url_parse_wrapper = urlParseWrapper.UrlParseWrapper()
         contRequester = urlRequester.UrlRequester(
             http_conn_wrapper, url_parse_wrapper)
-        resGetter = resourceGetter.ResourceGetter(contRequester)
+        resGetter = linkRequestProcessor.LinkRequestProcessor(contRequester)
         html_link_parser = htmlLinkParser.HTMLLinkParser()
         lp = linkProcessor.LinkProcessor(None, None, html_link_parser)
         plr = pLinkRequester.PLinkRequester(

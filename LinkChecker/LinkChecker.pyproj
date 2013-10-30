@@ -36,7 +36,7 @@
     <Compile Include="linkType.py" />
     <Compile Include="main.py" />
     <Compile Include="pLinkRequester.py" />
-    <Compile Include="resourceGetter.py" />
+    <Compile Include="linkRequestProcessor.py" />
     <Compile Include="tests\test_linkChecker.py" />
     <Compile Include="tests\test_linkFilterProcessor.py" />
     <Compile Include="tests\test_linkFilter.py" />

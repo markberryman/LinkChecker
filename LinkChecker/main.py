@@ -10,7 +10,7 @@ import linkTransform
 import linkTransformProcessor
 import pLinkRequester
 import queue
-import resourceGetter
+import linkRequestProcessor
 import urlParseWrapper
 
 startLink = link.Link(
@@ -27,7 +27,7 @@ http_conn_wrapper = httpConnWrapper.HttpConnWrapper()
 url_parse_wrapper = urlParseWrapper.UrlParseWrapper()
 contRequester = urlRequester.UrlRequester(
     http_conn_wrapper, url_parse_wrapper)
-resourceGetter = resourceGetter.ResourceGetter(contRequester)
+resourceGetter = linkRequestProcessor.LinkRequestProcessor(contRequester)
 linkFilters = set(
     [linkFilter.MailToFilter(), linkFilter.DomainCheckFilter(startLink.url)])
 linkTransformers = [linkTransform.RelativeLinkTransform(),
@@ -39,7 +39,7 @@ linkTransformProcessor = linkTransformProcessor.LinkTransformProcessor(
 linkProcessor = linkProcessor.LinkProcessor(
     linkFilterProcessor, linkTransformProcessor, html_link_parser)
 pLinkRequester = pLinkRequester.PLinkRequester(
-    25, resourceGetter.process_link_request, queue.Queue(), queue.Queue())
+    25, linkRequestProcessor.process_link_request, queue.Queue(), queue.Queue())
 
 checker = linkChecker.LinkChecker(
     resourceGetter, linkProcessor, pLinkRequester, depth)

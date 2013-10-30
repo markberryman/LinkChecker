@@ -2,7 +2,8 @@ import http.client
 import linkRequestResult
 
 
-class ResourceGetter:
+class LinkRequestProcessor:
+    """Processes LinkRequest objects."""
     def __init__(self, url_requester):
         self.url_requester = url_requester
 
@@ -21,7 +22,7 @@ class ResourceGetter:
         return result
 
     def process_link_request(self, link_request):
-        """Process the link request object."""
+        """Process LinkRequest and returns LinkRequestResult."""
         if (link_request is None):
             raise TypeError("link_request can not be None.")
 

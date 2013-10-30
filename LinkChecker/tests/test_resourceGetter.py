@@ -1,13 +1,13 @@
 import http.client
 import linkRequestResult
-import resourceGetter
+import linkRequestProcessor
 import unittest
 from unittest.mock import MagicMock
 
 
 class ResourceGetter_GetResourceTests(unittest.TestCase):
     def test_RaisesTypeErrorIflinkToProcessIsNone(self):
-        sut = resourceGetter.ResourceGetter(None)
+        sut = linkRequestProcessor.LinkRequestProcessor(None)
 
         self.assertRaises(TypeError, sut.process_link_request, None)
 
@@ -22,7 +22,7 @@ class ResourceGetter_GetResourceTests(unittest.TestCase):
         mock_url_requester = MagicMock()
         mock_url_requester.request_url = MagicMock(return_value=mock_response)
 
-        sut = resourceGetter.ResourceGetter(mock_url_requester)
+        sut = linkRequestProcessor.LinkRequestProcessor(mock_url_requester)
         sut._read_response = MagicMock(return_value="response data")
         expected = linkRequestResult.LinkRequestResult("link", 200, "response data")
 
@@ -37,7 +37,7 @@ class ResourceGetter_GetResourceTests(unittest.TestCase):
         mock_link_request = MagicMock()
         mock_link_request.link_url = "link"
 
-        sut = resourceGetter.ResourceGetter(mock_url_requester)
+        sut = linkRequestProcessor.LinkRequestProcessor(mock_url_requester)
         sut.make_request = MagicMock(return_value=None)
         expected = linkRequestResult.LinkRequestResult(
             "link", http.client.GATEWAY_TIMEOUT, None)
