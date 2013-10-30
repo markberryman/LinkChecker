@@ -1,6 +1,5 @@
 import pLinkRequester
 import unittest
-import queue
 from unittest.mock import MagicMock
 
 
@@ -11,11 +10,10 @@ class PLinkRequester_AddWorkTests(unittest.TestCase):
         self.assertRaises(TypeError, sut.add_work, None)
 
     def test_AddWorkAddsItemToInputQueue(self):
-        mock_queue = queue.Queue()
-        mock_queue.put = MagicMock()
-        dummy_link_request = MagicMock()
+        dummy_link_request = "dlr"
+        mock_queue = MagicMock()
         sut = pLinkRequester.PLinkRequester(
-            1, None, mock_queue, None)
+            None, None, mock_queue, None)
 
         sut.add_work(dummy_link_request)
 
