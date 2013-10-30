@@ -1,13 +1,13 @@
-import http.client
 import socket
-from urllib.parse import urlparse
 
 
 class UrlRequester(object):
     """Requests a url."""
-    def __init__(self):
+    def __init__(self, http_conn_wrapper, url_parse_wrapper):
         # timeout in seconds
         self.connTimeout = 5
+        self._http_conn_wrapper = http_conn_wrapper
+        self._url_parse_wrapper = url_parse_wrapper
 
     def request_url(self, url):
         """Requests a url and returns an HTTPResponse object."""
@@ -16,14 +16,13 @@ class UrlRequester(object):
         if (url is None):
             raise TypeError("URL can not be none.")
 
-        urlParts = urlparse(url)
+        urlParts = self._url_parse_wrapper.parse_url(url)
 
         # need to include some user agent value otherwise
         # sites are rejecting the request
         headers = {"User-Agent": "linkChecker"}
 
-        conn = http.client.HTTPConnection(
-            urlParts.netloc, None, None, self.connTimeout)
+        conn = self._http_conn_wrapper.create_connection(urlParts, self.connTimeout)
 
         conn.request("GET", urlParts.path, body=None, headers=headers)
 

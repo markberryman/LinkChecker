@@ -1,5 +1,6 @@
 import urlRequester
 import htmlLinkParser
+import httpConnWrapper
 import link
 import linkChecker
 import linkFilter
@@ -10,6 +11,7 @@ import linkTransformProcessor
 import pLinkRequester
 import queue
 import resourceGetter
+import urlParseWrapper
 
 startLink = link.Link(
     #"http://www.microsoft.com/en-us/default.aspx")
@@ -21,7 +23,10 @@ depth = 2
 print("Starting link checking with \"{}\" and depth {}".format(
     startLink.url, depth))
 
-contRequester = urlRequester.UrlRequester()
+http_conn_wrapper = httpConnWrapper.HttpConnWrapper()
+url_parse_wrapper = urlParseWrapper.UrlParseWrapper()
+contRequester = urlRequester.UrlRequester(
+    http_conn_wrapper, url_parse_wrapper)
 resourceGetter = resourceGetter.ResourceGetter(contRequester)
 linkFilters = set(
     [linkFilter.MailToFilter(), linkFilter.DomainCheckFilter(startLink.url)])

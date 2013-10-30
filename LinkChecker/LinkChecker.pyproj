@@ -23,6 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="htmlLinkParser.py" />
+    <Compile Include="httpConnWrapper.py" />
     <Compile Include="link.py" />
     <Compile Include="linkChecker.py" />
     <Compile Include="linkFilter.py" />

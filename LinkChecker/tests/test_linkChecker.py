@@ -1,5 +1,6 @@
 import urlRequester
 import htmlLinkParser
+import httpConnWrapper
 import link
 import linkChecker
 import linkFilter
@@ -11,6 +12,7 @@ import pLinkRequester
 import queue
 import resourceGetter
 import unittest
+import urlParseWrapper
 
 
 # these are more functional tests rather than unit tests
@@ -19,7 +21,10 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
         baseStartUrl = "http://localhost:35944"
         startLink = link.Link(baseStartUrl + "/index.html")
         depth = 3
-        contRequester = urlRequester.UrlRequester()
+        http_conn_wrapper = httpConnWrapper.HttpConnWrapper()
+        url_parse_wrapper = urlParseWrapper.UrlParseWrapper()
+        contRequester = urlRequester.UrlRequester(
+            http_conn_wrapper, url_parse_wrapper)
         resGetter = resourceGetter.ResourceGetter(contRequester)
         linkFilters = set(
             [linkFilter.MailToFilter(),
@@ -50,7 +55,10 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
         baseStartUrl = "http://localhost:35944/SimpleDepthProcessingTest"
         startLink = link.Link(baseStartUrl + "/depth1.html")
         depth = 3
-        contRequester = urlRequester.UrlRequester()
+        http_conn_wrapper = httpConnWrapper.HttpConnWrapper()
+        url_parse_wrapper = urlParseWrapper.UrlParseWrapper()
+        contRequester = urlRequester.UrlRequester(
+            http_conn_wrapper, url_parse_wrapper)
         resGetter = resourceGetter.ResourceGetter(contRequester)
         html_link_parser = htmlLinkParser.HTMLLinkParser()
         lp = linkProcessor.LinkProcessor(None, None, html_link_parser)
