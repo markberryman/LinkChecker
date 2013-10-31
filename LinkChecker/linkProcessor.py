@@ -5,10 +5,12 @@ class LinkProcessor(object):
     # todo - wrap application of filters/transforms in separate class
     def __init__(
             self, linkFilterProcessor,
-            linkTransformProcessor, html_link_parser):
+            linkTransformProcessor, html_link_parser,
+            links_post_processor):
         self.linkFilterProcessor = linkFilterProcessor
         self.linkTransformProcessor = linkTransformProcessor
         self._html_link_parser = html_link_parser
+        self._links_post_processor = links_post_processor
 
     def process_link(self, link_request_result):
         """Parses markup for new links, applies filters and transformers 
@@ -20,19 +22,12 @@ class LinkProcessor(object):
         links_from_markup = self._html_link_parser.parse_markup(
             link_request_result.response)
 
-        # apply transforms ahead of filtering b/c of the interaction
-        # b/w the transform converting relative links to absolute links and the
-        # filter which checks to ensure we're not leaving the root domain
-        if (self.linkTransformProcessor is not None):
-            # todo - consider passing the processing context into 
-            # this method
-            processing_context = {
-                "current_link_url": link_request_result.link_url
-            }
-            self.linkTransformProcessor.apply_transformers(
-                processing_context, links_from_markup)
+        processing_context = {
+            "current_link_url": link_request_result.link_url
+        }
 
-        if (self.linkFilterProcessor is not None):
-            links_from_markup = self.linkFilterProcessor.apply_filters(links_from_markup)
+        if (self._links_post_processor is not None):
+            links_from_markup = self._links_post_processor.apply_transforms_and_filters(
+                links_from_markup, processing_context)
 
         return links_from_markup
