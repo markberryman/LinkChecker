@@ -2,6 +2,7 @@ class LinkProcessor(object):
     """Processes the result of making a request for a link. This involves 
     processing the markup to look for new links and then applying transforms 
     and filters to those links."""
+    # todo - wrap application of filters/transforms in separate class
     def __init__(
             self, linkFilterProcessor,
             linkTransformProcessor, html_link_parser):
@@ -15,6 +16,7 @@ class LinkProcessor(object):
         if (link_request_result is None):
             raise TypeError("link_request_result can not be None.")
 
+        # todo - rename "parse_markup" method to "get_links_from_markup"
         links_from_markup = self._html_link_parser.parse_markup(
             link_request_result.response)
 
@@ -22,6 +24,8 @@ class LinkProcessor(object):
         # b/w the transform converting relative links to absolute links and the
         # filter which checks to ensure we're not leaving the root domain
         if (self.linkTransformProcessor is not None):
+            # todo - consider passing the processing context into 
+            # this method
             processing_context = {
                 "current_link_url": link_request_result.link_url
             }
