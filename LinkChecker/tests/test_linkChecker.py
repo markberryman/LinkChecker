@@ -5,6 +5,7 @@ import link
 import linkChecker
 import linkFilter
 import linkFilterProcessor
+import linksPostProcessor
 import linkRequestProcessor
 import linkTransform
 import linkTransformProcessor
@@ -37,7 +38,10 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
         html_link_parser = htmlLinkParser.HTMLLinkParser()
         lfp = linkFilterProcessor.LinkFilterProcessor(linkFilters)
         lt = linkTransformProcessor.LinkTransformProcessor(linkTransformers)
-        lp = linkProcessor.LinkProcessor(lfp, lt, html_link_parser)
+        links_post_processor = linksPostProcessor.LinksPostProcessor(
+            lfp, lt)
+        lp = linkProcessor.LinkProcessor(
+            lfp, lt, html_link_parser, links_post_processor)
         plr = pLinkRequester.PLinkRequester(
             3, link_request_processor.process_link_request, queue.Queue(), queue.Queue())
         sut = linkChecker.LinkChecker(lp, plr, depth)
@@ -66,7 +70,8 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
         link_request_processor = linkRequestProcessor.LinkRequestProcessor(
             contRequester, response_processor)
         html_link_parser = htmlLinkParser.HTMLLinkParser()
-        lp = linkProcessor.LinkProcessor(None, None, html_link_parser)
+        lp = linkProcessor.LinkProcessor(
+            None, None, html_link_parser, None)
         plr = pLinkRequester.PLinkRequester(
             3, link_request_processor.process_link_request, queue.Queue(), queue.Queue())
         sut = linkChecker.LinkChecker(lp, plr, depth)

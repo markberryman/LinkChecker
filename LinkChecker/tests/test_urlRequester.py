@@ -15,7 +15,7 @@ class UrlRequester_RequestUrlTests(unittest.TestCase):
         mock_url_parse_wrapper = MagicMock()
         mock_url_parse_wrapper.parse_url = MagicMock(return_value=dummy_url_parts)
         sut = urlRequester.UrlRequester(None, mock_url_parse_wrapper)
-        sut._create_http_conn = MagicMock()
+        sut._make_request = MagicMock()
 
         sut.request_url("url")
 
@@ -28,7 +28,7 @@ class UrlRequester_RequestUrlTests(unittest.TestCase):
         sut = urlRequester.UrlRequester(
             None, None)
         sut._url_parse_wrapper = MagicMock()
-        sut._create_http_conn = MagicMock(return_value=mock_http_conn)
+        sut._make_request = MagicMock(return_value=mock_http_conn)
         expected = None
 
         actual = sut.request_url("some url")
@@ -42,7 +42,7 @@ class UrlRequester_RequestUrlTests(unittest.TestCase):
         sut = urlRequester.UrlRequester(
             None, None)
         sut._url_parse_wrapper = MagicMock()
-        sut._create_http_conn = MagicMock(return_value=mock_http_conn)
+        sut._make_request = MagicMock(return_value=mock_http_conn)
         expected = dummy_response
 
         actual = sut.request_url("some url")
