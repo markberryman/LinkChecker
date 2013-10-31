@@ -5,6 +5,7 @@ import link
 import linkChecker
 import linkFilter
 import linkFilterProcessor
+import linksPostProcessor
 import linkProcessor
 import linkRequestProcessor
 import linkTransform
@@ -40,8 +41,10 @@ html_link_parser = htmlLinkParser.HTMLLinkParser()
 linkFilterProcessor = linkFilterProcessor.LinkFilterProcessor(linkFilters)
 linkTransformProcessor = linkTransformProcessor.LinkTransformProcessor(
     linkTransformers)
+links_post_processor = linksPostProcessor.LinksPostProcessor(
+    linkFilterProcessor, linkTransformProcessor)
 linkProcessor = linkProcessor.LinkProcessor(
-    linkFilterProcessor, linkTransformProcessor, html_link_parser)
+    html_link_parser, links_post_processor)
 pLinkRequester = pLinkRequester.PLinkRequester(
     25, linkRequestProcessor.process_link_request, queue.Queue(), queue.Queue())
 

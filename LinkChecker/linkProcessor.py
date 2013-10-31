@@ -4,11 +4,8 @@ class LinkProcessor(object):
     and filters to those links."""
     # todo - wrap application of filters/transforms in separate class
     def __init__(
-            self, linkFilterProcessor,
-            linkTransformProcessor, html_link_parser,
+            self, html_link_parser,
             links_post_processor):
-        self.linkFilterProcessor = linkFilterProcessor
-        self.linkTransformProcessor = linkTransformProcessor
         self._html_link_parser = html_link_parser
         self._links_post_processor = links_post_processor
 
