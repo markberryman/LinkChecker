@@ -19,7 +19,7 @@ class UrlRequester_RequestUrlTests(unittest.TestCase):
 
         sut.request_url("url")
 
-        sut._create_http_conn.assert_called_with(dummy_url_parts)
+        sut._make_request.assert_called_with(dummy_url_parts)
 
     # todo - should really test that we print/log something here
     def test_HandlesSocketErrorWhenGettingResponse(self):

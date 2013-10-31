@@ -9,7 +9,7 @@ class UrlRequester(object):
         self._http_conn_wrapper = http_conn_wrapper
         self._url_parse_wrapper = url_parse_wrapper
 
-    def _create_http_conn(self, urlParts):
+    def _make_request(self, urlParts):
         # need to include some user agent value otherwise
         # sites are rejecting the request
         headers = {"User-Agent": "linkChecker"}
@@ -29,7 +29,7 @@ class UrlRequester(object):
 
         urlParts = self._url_parse_wrapper.parse_url(url)
                 
-        conn = self._create_http_conn(urlParts)
+        conn = self._make_request(urlParts)
 
         try:
             result = conn.getresponse()
