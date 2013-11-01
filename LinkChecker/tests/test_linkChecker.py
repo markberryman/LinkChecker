@@ -20,66 +20,66 @@ import urlParseWrapper
 # these are more functional tests rather than unit tests
 class LinkChecker_CheckLinksTests(unittest.TestCase):
     def test_FunctionalE2ETest(self):
-        baseStartUrl = "http://localhost:35944"
-        startLink = link.Link(baseStartUrl + "/index.html")
+        base_start_url = "http://localhost:35944"
+        start_link = link.Link(base_start_url + "/index.html")
         depth = 3
         http_conn_wrapper = httpConnWrapper.HttpConnWrapper()
         url_parse_wrapper = urlParseWrapper.UrlParseWrapper()
-        contRequester = urlRequester.UrlRequester(
+        url_requester = urlRequester.UrlRequester(
             http_conn_wrapper, url_parse_wrapper)
         response_processor = responseProcessor.ResponseProcessor()
         link_request_processor = linkRequestProcessor.LinkRequestProcessor(
-            contRequester, response_processor)
-        linkFilters = set(
+            url_requester, response_processor)
+        link_filters = set(
             [linkFilter.MailToFilter(),
-                linkFilter.DomainCheckFilter(startLink.url)])
-        linkTransformers = [linkTransform.RelativeLinkTransform(),
+                linkFilter.DomainCheckFilter(start_link.url)])
+        link_transformers = [linkTransform.RelativeLinkTransform(),
                             linkTransform.LowerCaseTransform()]
         html_link_parser = htmlLinkParser.HTMLLinkParser()
-        lfp = linkFilterProcessor.LinkFilterProcessor(linkFilters)
-        lt = linkTransformProcessor.LinkTransformProcessor(linkTransformers)
+        link_filter_processor = linkFilterProcessor.LinkFilterProcessor(link_filters)
+        link_transform_processor = linkTransformProcessor.LinkTransformProcessor(link_transformers)
         links_post_processor = linksPostProcessor.LinksPostProcessor(
-            lfp, lt)
-        lp = linkProcessor.LinkProcessor(
+            link_filter_processor, link_transform_processor)
+        link_processor = linkProcessor.LinkProcessor(
             html_link_parser, links_post_processor)
-        plr = pLinkRequester.PLinkRequester(
+        parallel_link_requester = pLinkRequester.PLinkRequester(
             3, link_request_processor.process_link_request, queue.Queue(), queue.Queue())
-        sut = linkChecker.LinkChecker(lp, plr, depth)
+        sut = linkChecker.LinkChecker(link_processor, parallel_link_requester, depth)
 
-        results = sut.check_links(startLink)
+        results = sut.check_links(start_link)
 
-        linksRequested = results["linksRequested"]
-        self.assertEqual(11, len(linksRequested))
+        links_requested = results["linksRequested"]
+        self.assertEqual(11, len(links_requested))
         self.assertEqual(3, len(results["brokenLinks"]))
         self.assertEqual(1, len(results["invalidMarkupLinks"]))
         self.assertTrue(
-            baseStartUrl + "/arelativelink.html" in linksRequested)
+            base_start_url + "/arelativelink.html" in links_requested)
         self.assertTrue(
-            baseStartUrl + "/subdir/arelativelinkinasubdir.html"
-            in linksRequested)
+            base_start_url + "/subdir/arelativelinkinasubdir.html"
+            in links_requested)
 
     def test_SimpleDepthProcessingTest(self):
-        baseStartUrl = "http://localhost:35944/SimpleDepthProcessingTest"
-        startLink = link.Link(baseStartUrl + "/depth1.html")
+        base_start_url = "http://localhost:35944/SimpleDepthProcessingTest"
+        start_link = link.Link(base_start_url + "/depth1.html")
         depth = 3
         http_conn_wrapper = httpConnWrapper.HttpConnWrapper()
         url_parse_wrapper = urlParseWrapper.UrlParseWrapper()
-        contRequester = urlRequester.UrlRequester(
+        url_requester = urlRequester.UrlRequester(
             http_conn_wrapper, url_parse_wrapper)
         response_processor = responseProcessor.ResponseProcessor()
         link_request_processor = linkRequestProcessor.LinkRequestProcessor(
-            contRequester, response_processor)
+            url_requester, response_processor)
         html_link_parser = htmlLinkParser.HTMLLinkParser()
-        lp = linkProcessor.LinkProcessor(
+        link_processor = linkProcessor.LinkProcessor(
             html_link_parser, None)
-        plr = pLinkRequester.PLinkRequester(
+        parallel_link_requester = pLinkRequester.PLinkRequester(
             3, link_request_processor.process_link_request, queue.Queue(), queue.Queue())
-        sut = linkChecker.LinkChecker(lp, plr, depth)
+        sut = linkChecker.LinkChecker(link_processor, parallel_link_requester, depth)
 
-        results = sut.check_links(startLink)
+        results = sut.check_links(start_link)
 
-        linksRequested = results["linksRequested"]
-        self.assertEqual(3, len(linksRequested))
+        links_requested = results["linksRequested"]
+        self.assertEqual(3, len(links_requested))
 
 
 if __name__ == '__main__':
