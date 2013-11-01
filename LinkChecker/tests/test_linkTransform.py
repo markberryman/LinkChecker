@@ -3,18 +3,6 @@ import linkTransform
 import unittest
 
 
-class LinkTransform_TransformTests(unittest.TestCase):
-    def test_RaisesTypeErrorIfProcessingContextIsNone(self):
-        sut = linkTransform.LinkTransform()
-
-        self.assertRaises(TypeError, sut.transform, None, "some link")
-
-    def test_RaisesTypeErrorIfLinkIsNone(self):
-        sut = linkTransform.LinkTransform()
-
-        self.assertRaises(TypeError, sut.transform, "some context", None)
-
-
 class LowerCaseTransformUnitTests(unittest.TestCase):
     def test_OnlyLowerCasesUrlSchemeAndNetloc(self):
         dummyLink = link.Link("HTTP://WWW.FOO.COM/SOMEPATH/INDEX.HTML?A=FOO")
