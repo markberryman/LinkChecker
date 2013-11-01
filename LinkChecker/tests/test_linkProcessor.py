@@ -42,8 +42,6 @@ class LinkProcessor_ProcessLinkTests(unittest.TestCase):
 
         self.assertEqual(expected, actual)
 
-    # test link filter applied
-    # test transforms applied before filters
 
 if __name__ == '__main__':
     unittest.main()
