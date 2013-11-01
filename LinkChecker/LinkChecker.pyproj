@@ -26,13 +26,13 @@
     <Compile Include="httpConnWrapper.py" />
     <Compile Include="link.py" />
     <Compile Include="linkChecker.py" />
-    <Compile Include="linkFilter.py" />
-    <Compile Include="linkFilterProcessor.py" />
+    <Compile Include="modifiers\linkFilter.py" />
+    <Compile Include="modifiers\linkFilterProcessor.py" />
     <Compile Include="linkProcessor.py" />
     <Compile Include="linkRequest.py" />
     <Compile Include="linkRequestResult.py" />
-    <Compile Include="linkTransform.py" />
-    <Compile Include="linkTransformProcessor.py" />
+    <Compile Include="modifiers\linkTransform.py" />
+    <Compile Include="modifiers\linkTransformProcessor.py" />
     <Compile Include="linkType.py" />
     <Compile Include="main.py" />
     <Compile Include="pLinkRequester.py" />
@@ -55,6 +55,7 @@
     <Compile Include="urlRequester.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="modifiers\" />
     <Folder Include="tests\" />
   </ItemGroup>
   <ItemGroup>

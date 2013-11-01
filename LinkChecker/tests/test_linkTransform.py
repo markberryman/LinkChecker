@@ -1,5 +1,5 @@
 import link
-import linkTransform
+from modifiers import linkTransform
 import unittest
 
 

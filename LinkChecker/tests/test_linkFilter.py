@@ -1,4 +1,4 @@
-import linkFilter
+from modifiers import linkFilter
 import unittest
 
 

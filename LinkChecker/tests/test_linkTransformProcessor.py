@@ -1,6 +1,6 @@
 import link
-import linkTransform
-import linkTransformProcessor
+from modifiers import linkTransformProcessor
+from modifiers import linkTransform
 import unittest
 from unittest.mock import call
 from unittest.mock import MagicMock

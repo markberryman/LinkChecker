@@ -3,12 +3,12 @@ import htmlLinkParser
 import httpConnWrapper
 import link
 import linkChecker
-import linkFilter
-import linkFilterProcessor
+from modifiers import linkFilter
+from modifiers import linkFilterProcessor
 import linksPostProcessor
 import linkRequestProcessor
-import linkTransform
-import linkTransformProcessor
+from modifiers import linkTransform
+from modifiers import linkTransformProcessor
 import linkProcessor
 import pLinkRequester
 import responseProcessor
