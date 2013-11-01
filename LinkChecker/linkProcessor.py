@@ -2,7 +2,6 @@ class LinkProcessor(object):
     """Processes the result of making a request for a link. This involves 
     processing the markup to look for new links and then applying transforms 
     and filters to those links."""
-    # todo - wrap application of filters/transforms in separate class
     def __init__(
             self, html_link_parser,
             links_post_processor):
@@ -19,6 +18,7 @@ class LinkProcessor(object):
         links_from_markup = self._html_link_parser.parse_markup(
             link_request_result.response)
 
+        # todo - consider having this passed in?
         processing_context = {
             "current_link_url": link_request_result.link_url
         }
