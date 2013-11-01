@@ -28,9 +28,22 @@ class LinkProcessor_ProcessLinkTests(unittest.TestCase):
         mock_links_post_processor.apply_transforms_and_filters.assert_called_with(
             dummy_links_from_markup, dummy_processing_context)
     
+    def test_ReturnsLinksFromPostProcessor(self):
+        mock_link_request_result = MagicMock()
+        dummy_links_from_markup = "links"
+        mock_links_post_processor = MagicMock()
+        mock_links_post_processor.apply_transforms_and_filters = MagicMock(return_value=dummy_links_from_markup)
+        mock_html_link_parser = MagicMock()
+        sut = linkProcessor.LinkProcessor(
+            mock_html_link_parser, mock_links_post_processor)
+        expected = dummy_links_from_markup
+
+        actual = sut.process_link(mock_link_request_result)
+
+        self.assertEqual(expected, actual)
+
     # test link filter applied
     # test transforms applied before filters
-    # test data returned
 
 if __name__ == '__main__':
     unittest.main()
