@@ -28,11 +28,11 @@ print("Starting link checking with \"{}\" and depth {}".format(
 
 http_conn_wrapper = httpConnWrapper.HttpConnWrapper()
 url_parse_wrapper = urlParseWrapper.UrlParseWrapper()
-contRequester = urlRequester.UrlRequester(
+url_requester = urlRequester.UrlRequester(
     http_conn_wrapper, url_parse_wrapper)
 response_processor = responseProcessor.ResponseProcessor()
 linkRequestProcessor = linkRequestProcessor.LinkRequestProcessor(
-    contRequester, response_processor)
+    url_requester, response_processor)
 linkFilters = set(
     [linkFilter.MailToFilter(), linkFilter.DomainCheckFilter(startLink.url)])
 linkTransformers = [linkTransform.RelativeLinkTransform(),
