@@ -1,5 +1,5 @@
-import linkRequestResult
-import linkRequestProcessor
+from linkrequest import linkRequestResult
+from linkrequest import linkRequestProcessor
 import unittest
 from unittest.mock import MagicMock
 

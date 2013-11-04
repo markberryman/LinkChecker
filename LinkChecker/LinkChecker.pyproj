@@ -29,14 +29,14 @@
     <Compile Include="modifiers\linkFilter.py" />
     <Compile Include="modifiers\linkFilterProcessor.py" />
     <Compile Include="linkProcessor.py" />
-    <Compile Include="linkRequest.py" />
-    <Compile Include="linkRequestResult.py" />
+    <Compile Include="linkrequest\linkRequest.py" />
+    <Compile Include="linkrequest\linkRequestResult.py" />
     <Compile Include="modifiers\linkTransform.py" />
     <Compile Include="modifiers\linkTransformProcessor.py" />
     <Compile Include="linkType.py" />
     <Compile Include="main.py" />
     <Compile Include="pLinkRequester.py" />
-    <Compile Include="linkRequestProcessor.py" />
+    <Compile Include="linkrequest\linkRequestProcessor.py" />
     <Compile Include="responseProcessor.py" />
     <Compile Include="tests\test_linkChecker.py" />
     <Compile Include="tests\test_linkFilterProcessor.py" />
@@ -55,6 +55,7 @@
     <Compile Include="urlRequester.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="linkrequest\" />
     <Folder Include="modifiers\" />
     <Folder Include="tests\" />
   </ItemGroup>

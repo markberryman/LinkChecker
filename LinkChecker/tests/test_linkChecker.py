@@ -6,7 +6,7 @@ import linkChecker
 from modifiers import linkFilter
 from modifiers import linkFilterProcessor
 import linksPostProcessor
-import linkRequestProcessor
+from linkrequest import linkRequestProcessor
 from modifiers import linkTransform
 from modifiers import linkTransformProcessor
 import linkProcessor

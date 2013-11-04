@@ -1,6 +1,6 @@
 import http.client
 import html.parser
-import linkRequest
+from linkrequest import linkRequest
 import linkType
 
 

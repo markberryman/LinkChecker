@@ -7,7 +7,7 @@ import linkFilter
 import linkFilterProcessor
 import linksPostProcessor
 import linkProcessor
-import linkRequestProcessor
+from linkrequest import linkRequestProcessor
 import linkTransform
 import linkTransformProcessor
 import pLinkRequester

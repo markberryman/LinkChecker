@@ -1,4 +1,4 @@
-import linkRequestResult
+from . import linkRequestResult
 
 
 class LinkRequestProcessor:
