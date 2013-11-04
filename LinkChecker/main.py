@@ -3,13 +3,13 @@ import htmlLinkParser
 import httpConnWrapper
 from link import link
 import linkChecker
-import linkFilter
-import linkFilterProcessor
 import linksPostProcessor
 import linkProcessor
 from linkrequest import linkRequestProcessor
-import linkTransform
-import linkTransformProcessor
+from modifiers import linkFilter
+from modifiers import linkFilterProcessor
+from modifiers import linkTransform
+from modifiers import linkTransformProcessor
 import pLinkRequester
 import responseProcessor
 import queue
