@@ -4,8 +4,7 @@ from html.parser import HTMLParser
 
 
 class HTMLLinkParser(HTMLParser):
-    """Parses HTML markup and returns the number of discovered
-    links."""
+    """Parses HTML markup and returns the links."""
     def __init__(self):
         super().__init__(self)
 
