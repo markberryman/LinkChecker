@@ -31,25 +31,25 @@ url_parse_wrapper = urlParseWrapper.UrlParseWrapper()
 url_requester = urlRequester.UrlRequester(
     http_conn_wrapper, url_parse_wrapper)
 response_processor = responseProcessor.ResponseProcessor()
-linkRequestProcessor = linkRequestProcessor.LinkRequestProcessor(
+link_request_processor = linkRequestProcessor.LinkRequestProcessor(
     url_requester, response_processor)
-linkFilters = set(
+link_filters = set(
     [linkFilter.MailToFilter(), linkFilter.DomainCheckFilter(startLink.url)])
-linkTransformers = [linkTransform.RelativeLinkTransform(),
+link_transformers = [linkTransform.RelativeLinkTransform(),
                     linkTransform.LowerCaseTransform()]
 html_link_parser = htmlLinkParser.HTMLLinkParser()
-linkFilterProcessor = linkFilterProcessor.LinkFilterProcessor(linkFilters)
-linkTransformProcessor = linkTransformProcessor.LinkTransformProcessor(
-    linkTransformers)
+link_filter_processor = linkFilterProcessor.LinkFilterProcessor(link_filters)
+link_transform_processor = linkTransformProcessor.LinkTransformProcessor(
+    link_transformers)
 links_post_processor = linksPostProcessor.LinksPostProcessor(
-    linkFilterProcessor, linkTransformProcessor)
-linkProcessor = linkProcessor.LinkProcessor(
+    link_filter_processor, link_transform_processor)
+link_processor = linkProcessor.LinkProcessor(
     html_link_parser, links_post_processor)
-pLinkRequester = pLinkRequester.PLinkRequester(
-    25, linkRequestProcessor.process_link_request, queue.Queue(), queue.Queue())
+p_link_requester = pLinkRequester.PLinkRequester(
+    25, link_request_processor.process_link_request, queue.Queue(), queue.Queue())
 
 checker = linkChecker.LinkChecker(
-    linkProcessor, pLinkRequester, depth)
+    link_processor, p_link_requester, depth)
 
 results = checker.check_links(startLink)
 
