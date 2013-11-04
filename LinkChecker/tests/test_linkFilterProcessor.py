@@ -1,5 +1,5 @@
 from unittest.mock import call
-import link
+from link import link
 from modifiers import linkFilter
 from modifiers import linkFilterProcessor
 from unittest.mock import MagicMock

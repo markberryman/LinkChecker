@@ -1,7 +1,7 @@
 import http.client
 import html.parser
 from linkrequest import linkRequest
-import linkType
+from link import linkType
 
 
 class LinkChecker:

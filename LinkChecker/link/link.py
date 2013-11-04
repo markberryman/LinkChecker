@@ -1,4 +1,4 @@
-import linkType
+from . import linkType
 
 
 class Link(object):

@@ -24,7 +24,7 @@
   <ItemGroup>
     <Compile Include="htmlLinkParser.py" />
     <Compile Include="httpConnWrapper.py" />
-    <Compile Include="link.py" />
+    <Compile Include="link\link.py" />
     <Compile Include="linkChecker.py" />
     <Compile Include="modifiers\linkFilter.py" />
     <Compile Include="modifiers\linkFilterProcessor.py" />
@@ -33,7 +33,7 @@
     <Compile Include="linkrequest\linkRequestResult.py" />
     <Compile Include="modifiers\linkTransform.py" />
     <Compile Include="modifiers\linkTransformProcessor.py" />
-    <Compile Include="linkType.py" />
+    <Compile Include="link\linkType.py" />
     <Compile Include="main.py" />
     <Compile Include="pLinkRequester.py" />
     <Compile Include="linkrequest\linkRequestProcessor.py" />
@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="linkrequest\" />
+    <Folder Include="link\" />
     <Folder Include="modifiers\" />
     <Folder Include="tests\" />
   </ItemGroup>

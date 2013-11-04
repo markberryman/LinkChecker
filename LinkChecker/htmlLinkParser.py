@@ -1,5 +1,5 @@
-import link
-import linkType
+from link import link
+from link import linkType
 from html.parser import HTMLParser
 
 

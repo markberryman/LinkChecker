@@ -1,5 +1,5 @@
 import htmlLinkParser
-import linkType
+from link import linkType
 import unittest
 
 

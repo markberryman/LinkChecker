@@ -1,4 +1,4 @@
-import link
+from link import link
 from modifiers import linkTransformProcessor
 from modifiers import linkTransform
 import unittest

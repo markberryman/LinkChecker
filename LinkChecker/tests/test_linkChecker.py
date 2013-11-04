@@ -1,7 +1,7 @@
 import urlRequester
 import htmlLinkParser
 import httpConnWrapper
-import link
+from link import link
 import linkChecker
 from modifiers import linkFilter
 from modifiers import linkFilterProcessor
