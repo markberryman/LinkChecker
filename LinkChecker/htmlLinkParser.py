@@ -7,6 +7,12 @@ class HTMLLinkParser(HTMLParser):
     """Parses HTML markup and returns the links."""
     def __init__(self):
         super().__init__(self)
+        self._processing_functions = { 
+            "a": self._process_anchor_tag,
+            "link": self._process_link_tag,
+            "script": self._process_script_tag,
+            "img": self._process_image_tag
+            }
 
     def parse_markup(self, markup):
         self.links = set()
@@ -28,29 +34,20 @@ class HTMLLinkParser(HTMLParser):
         newLink = None
         attrDict = dict(attrs)
 
-        if (tag == "a"):
-            newLink = self.__process_anchor_tag(attrDict)
+        if (tag in self._processing_functions):
+            newLink = self._processing_functions[tag](attrDict)
 
-        if (tag == "link"):
-            newLink = self.__process_link_tag(attrDict)
-
-        if (tag == "script"):
-            newLink = self.__process_script_tag(attrDict)
-
-        if (tag == "img"):
-            newLink = self.__process_image_tag(attrDict)
-
-        # handling tags that don't have a link (i.e., bad markup)
-        if (newLink is not None):
-            self.links.add(newLink)
+            # handling tags that don't have a link (i.e., bad markup)
+            if (newLink is not None):
+                self.links.add(newLink)
 
     @staticmethod
-    def __process_anchor_tag(attrDict):
+    def _process_anchor_tag(attrDict):
         if "href" in attrDict:
             return link.Link(attrDict["href"], linkType.LinkType.ANCHOR)
 
     @staticmethod
-    def __process_link_tag(attrDict):
+    def _process_link_tag(attrDict):
         if "rel" in attrDict:
             if (attrDict["rel"] == "stylesheet"):
                 if "href" in attrDict:
@@ -58,11 +55,11 @@ class HTMLLinkParser(HTMLParser):
                         attrDict["href"], linkType.LinkType.STYLESHEET)
 
     @staticmethod
-    def __process_script_tag(attrDict):
+    def _process_script_tag(attrDict):
         if "src" in attrDict:
             return link.Link(attrDict["src"], linkType.LinkType.SCRIPT)
 
     @staticmethod
-    def __process_image_tag(attrDict):
+    def _process_image_tag(attrDict):
         if "src" in attrDict:
             return link.Link(attrDict["src"], linkType.LinkType.IMAGE)
