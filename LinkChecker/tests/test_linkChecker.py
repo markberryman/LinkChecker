@@ -7,6 +7,7 @@ from modifiers import linkFilter
 from modifiers import linkFilterProcessor
 import linksPostProcessor
 from linkrequest import linkRequestProcessor
+import linkRequestResultProcessor
 from modifiers import linkTransform
 from modifiers import linkTransformProcessor
 import linkProcessor
@@ -44,7 +45,8 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
             html_link_parser, links_post_processor)
         parallel_link_requester = linkRequester.LinkRequester(
             3, link_request_processor.process_link_request, queue.Queue(), queue.Queue())
-        sut = linkChecker.LinkChecker(link_processor, parallel_link_requester, depth)
+        link_request_result_processor = linkRequestResultProcessor.LinkRequestResultProcessor(link_processor)
+        sut = linkChecker.LinkChecker(link_processor, parallel_link_requester, link_request_result_processor, depth)
 
         results = sut.check_links(start_link)
 
@@ -74,7 +76,8 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
             html_link_parser, None)
         parallel_link_requester = linkRequester.LinkRequester(
             3, link_request_processor.process_link_request, queue.Queue(), queue.Queue())
-        sut = linkChecker.LinkChecker(link_processor, parallel_link_requester, depth)
+        link_request_result_processor = linkRequestResultProcessor.LinkRequestResultProcessor(link_processor)
+        sut = linkChecker.LinkChecker(link_processor, parallel_link_requester, link_request_result_processor, depth)
 
         results = sut.check_links(start_link)
 

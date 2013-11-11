@@ -1,18 +1,18 @@
-import http.client
-import html.parser
-from linkrequest import linkRequest
 from link import linkType
+from linkrequest import linkRequest
 
 
 class LinkChecker:
     def __init__(
-            self, linkProcessor, pLinkRequester, maxDepth):
+            self, linkProcessor, pLinkRequester, 
+            link_request_result_processor, maxDepth):
         self.linkProcessor = linkProcessor
         self.linksRequested = set()
         # tuples of link url and status code
         self.brokenLinks = set()
         self.invalidMarkupLinks = set()
         self.pLinkRequester = pLinkRequester
+        self._link_request_result_processor = link_request_result_processor
         self.maxDepth = maxDepth
 
     def print_results(self, results):
@@ -48,18 +48,6 @@ class LinkChecker:
         for l in links:
             print("* {}".format(l))
 
-    @staticmethod
-    def _is_link_broken(status_code):
-        return ((status_code < http.client.OK) or
-                (status_code >= http.client.BAD_REQUEST))
-
-    def _process_link_request_result(self, link_request_result):
-        """Determine the new links to request from a link request result."""
-        new_links = self.linkProcessor.process_link(link_request_result)
-        links_to_process = new_links.difference(self.linksRequested)
-
-        return links_to_process
-
     def _create_requests(self, links_to_process, is_leaf_request):
         for link in links_to_process:
             # don't need to read response for last link depth (aka leaf requests)
@@ -83,22 +71,16 @@ class LinkChecker:
             print("\nAwaiting results...\n")
             linkRequestResults = self.pLinkRequester.get_results()
 
-            for linkRequestResult in linkRequestResults:
-                result_status_code = linkRequestResult.status_code
-                print("[{}] {}\n  --> {}".format(result_status_code,
-                                          http.client.responses[result_status_code].upper(),
-                                          linkRequestResult.link_url))                
+            good_links, invalid_markup_links, broken_links = self._link_request_result_processor.process_link_request_result(
+                linkRequestResults)
 
-                if (LinkChecker._is_link_broken(result_status_code) is False):
-                    if (linkRequestResult.response is not None):
-                        try:
-                            new_links = self._process_link_request_result(linkRequestResult)
-                            linksToProcess.extend(list(new_links))
-                        except html.parser.HTMLParseError:
-                            self.invalidMarkupLinks.add(linkRequestResult.link_url)
-                else:
-                    self.brokenLinks.add((
-                        linkRequestResult.link_url, linkRequestResult.status_code))
+            # filter out links previously requested
+            linksToProcess.extend(
+                good_links.difference(self.linksRequested))
+
+            self.invalidMarkupLinks = self.invalidMarkupLinks.union(invalid_markup_links)
+
+            self.brokenLinks = self.brokenLinks.union(broken_links)
 
     def check_links(self, startLink):
         self.pLinkRequester.start()

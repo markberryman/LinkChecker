@@ -6,6 +6,7 @@ import linkChecker
 import linksPostProcessor
 import linkProcessor
 from linkrequest import linkRequestProcessor
+import linkRequestResultProcessor
 from modifiers import linkFilter
 from modifiers import linkFilterProcessor
 from modifiers import linkTransform
@@ -19,10 +20,10 @@ import urlParseWrapper
 startLink = link.Link(
     #"http://www.microsoft.com/en-us/default.aspx")
     #"http://www.markwberryman.com/")
-    #"http://apigee.com/about/customers/bechtel-improving-workforce-efficiency-and-productivity-through-apis")
-    "http://www.microsoft.com")
+    "http://apigee.com/about/customers/bechtel-improving-workforce-efficiency-and-productivity-through-apis")
+    #"http://www.microsoft.com")
 
-depth = 3
+depth = 2
 
 print("Starting link checking with \"{}\" and depth {}".format(
     startLink.url, depth))
@@ -47,9 +48,10 @@ link_processor = linkProcessor.LinkProcessor(
     html_link_parser, links_post_processor)
 p_link_requester = linkRequester.LinkRequester(
     25, link_request_processor.process_link_request, queue.Queue(), queue.Queue())
+link_request_result_processor = linkRequestResultProcessor.LinkRequestResultProcessor(link_processor)
 
 checker = linkChecker.LinkChecker(
-    link_processor, p_link_requester, depth)
+    link_processor, p_link_requester, link_request_result_processor, depth)
 
 results = checker.check_links(startLink)
 
