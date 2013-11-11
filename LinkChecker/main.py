@@ -33,8 +33,7 @@ url_requester = urlRequester.UrlRequester(
 response_processor = responseProcessor.ResponseProcessor()
 link_request_processor = linkRequestProcessor.LinkRequestProcessor(
     url_requester, response_processor)
-link_filters = set(
-    [linkFilter.MailToFilter(), linkFilter.DomainCheckFilter(startLink.url)])
+link_filters = [linkFilter.MailToFilter(), linkFilter.DomainCheckFilter(startLink.url)]
 link_transformers = [linkTransform.RelativeLinkTransform(),
                     linkTransform.LowerCaseTransform()]
 html_link_parser = htmlLinkParser.HTMLLinkParser()
