@@ -35,7 +35,7 @@
     <Compile Include="modifiers\linkTransformProcessor.py" />
     <Compile Include="link\linkType.py" />
     <Compile Include="main.py" />
-    <Compile Include="pLinkRequester.py" />
+    <Compile Include="linkRequester.py" />
     <Compile Include="linkrequest\linkRequestProcessor.py" />
     <Compile Include="responseProcessor.py" />
     <Compile Include="tests\test_linkChecker.py" />

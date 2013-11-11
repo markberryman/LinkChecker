@@ -1,7 +1,7 @@
 import threading
 
 
-class PLinkRequester(object):
+class LinkRequester(object):
     """Parallel link processor."""
     def __init__(self, num_worker_threads, workFn, input_queue, output_queue):
         self._input_queue = input_queue

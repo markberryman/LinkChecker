@@ -10,7 +10,7 @@ from modifiers import linkFilter
 from modifiers import linkFilterProcessor
 from modifiers import linkTransform
 from modifiers import linkTransformProcessor
-import pLinkRequester
+import linkRequester
 import responseProcessor
 import queue
 
@@ -45,7 +45,7 @@ links_post_processor = linksPostProcessor.LinksPostProcessor(
     link_filter_processor, link_transform_processor)
 link_processor = linkProcessor.LinkProcessor(
     html_link_parser, links_post_processor)
-p_link_requester = pLinkRequester.PLinkRequester(
+p_link_requester = linkRequester.LinkRequester(
     25, link_request_processor.process_link_request, queue.Queue(), queue.Queue())
 
 checker = linkChecker.LinkChecker(
