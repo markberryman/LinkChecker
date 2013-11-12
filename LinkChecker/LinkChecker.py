@@ -4,14 +4,14 @@ from linkrequest import linkRequest
 
 class LinkChecker:
     def __init__(
-            self, linkProcessor, pLinkRequester, 
+            self, linkProcessor, link_requester, 
             link_request_result_processor, maxDepth):
         self.linkProcessor = linkProcessor
         self.linksRequested = set()
         # tuples of link url and status code
         self.brokenLinks = set()
         self.invalidMarkupLinks = set()
-        self.pLinkRequester = pLinkRequester
+        self._link_requester = link_requester
         self._link_request_result_processor = link_request_result_processor
         self.maxDepth = maxDepth
 
@@ -54,7 +54,7 @@ class LinkChecker:
             shouldReadResponse = ((link.type == linkType.LinkType.ANCHOR) and
                                     (is_leaf_request is False))
             linkRequestWorkItem = linkRequest.LinkRequest(link.url, shouldReadResponse)
-            self.pLinkRequester.add_work(linkRequestWorkItem)
+            self._link_requester.add_work(linkRequestWorkItem)
             self.linksRequested.add(link.url)
 
         links_to_process.clear()
@@ -69,7 +69,7 @@ class LinkChecker:
 
             # get results; blocking until all link processing completed
             print("\nAwaiting results...\n")
-            linkRequestResults = self.pLinkRequester.get_results()
+            linkRequestResults = self._link_requester.get_results()
 
             good_links, invalid_markup_links, broken_links = self._link_request_result_processor.process_link_request_result(
                 linkRequestResults)
@@ -83,7 +83,7 @@ class LinkChecker:
             self.brokenLinks = self.brokenLinks.union(broken_links)
 
     def check_links(self, startLink):
-        self.pLinkRequester.start()
+        self._link_requester.start()
         self.__check_links_helper([startLink])
 
         return {

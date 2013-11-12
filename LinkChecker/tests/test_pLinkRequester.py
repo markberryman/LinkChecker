@@ -3,7 +3,7 @@ import unittest
 from unittest.mock import MagicMock
 
 
-class PLinkRequester_AddWorkTests(unittest.TestCase):
+class LinkRequester_AddWorkTests(unittest.TestCase):
     def test_RaisesTypeErrorIfItemIsNone(self):
         sut = linkRequester.LinkRequester(1, None, None, None)
 
@@ -20,7 +20,7 @@ class PLinkRequester_AddWorkTests(unittest.TestCase):
         mock_queue.put.assert_called_with(dummy_link_request)
 
 
-class PLinkRequester_GetResultsTests(unittest.TestCase):
+class LinkRequester_GetResultsTests(unittest.TestCase):
     def test_CallsJoinOnInputQueue(self):
         mock_input_queue = MagicMock()
         mock_output_queue = MagicMock()
