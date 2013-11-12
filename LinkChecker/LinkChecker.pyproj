@@ -43,6 +43,7 @@
     <Compile Include="tests\test_linkFilterProcessor.py" />
     <Compile Include="tests\test_linkFilter.py" />
     <Compile Include="tests\test_linkProcessor.py" />
+    <Compile Include="tests\test_linkRequestResultProcessor.py" />
     <Compile Include="tests\test_linksPostProcessor.py" />
     <Compile Include="tests\test_linkTransformProcessor.py" />
     <Compile Include="tests\test_linkTransform.py" />
