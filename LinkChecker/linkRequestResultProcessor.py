@@ -17,7 +17,7 @@ class LinkRequestResultProcessor(object):
         broken_links = set()
 
         for link_request_result in link_request_results:
-            if (LinkRequestResultProcessor._is_link_broken(link_request_result.status_code) is False):
+            if (self._is_link_broken(link_request_result.status_code) is False):
                 if (link_request_result.response is not None):
                     try:
                         good_links = good_links.union(
@@ -30,7 +30,6 @@ class LinkRequestResultProcessor(object):
 
         return good_links, invalid_markup_links, broken_links
 
-    @staticmethod
-    def _is_link_broken(status_code):
+    def _is_link_broken(self, status_code):
         return ((status_code < http.client.OK) or
                 (status_code >= http.client.BAD_REQUEST))
