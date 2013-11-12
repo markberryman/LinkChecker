@@ -35,8 +35,8 @@ class LinkRequestResultProcessor_ProcessLinkRequestResultTests(unittest.TestCase
 
         self.assertEqual(expected, actual)
     
-    def test_ReturnsGoodLinksLinks(self):
-        dummy_links = ["link1", "link2"]
+    def test_ReturnsUniqueGoodLinksLinks(self):
+        dummy_links = ["link1", "link2", "link1"]
         mock_link_request_result = MagicMock()
         mock_link_request_results = [mock_link_request_result]
         mock_link_processor = MagicMock()
