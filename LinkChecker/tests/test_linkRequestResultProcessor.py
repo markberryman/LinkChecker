@@ -17,8 +17,8 @@ class LinkRequestResultProcessor_ProcessLinkRequestResultTests(unittest.TestCase
         good_links, invalid_markup_links, broken_links = sut.process_link_request_result(mock_link_request_results)
         actual = broken_links.pop()
 
-        self.assertEqual(actual[0], expected[0])
-        self.assertEqual(actual[1], expected[1])
+        self.assertEqual(expected[0], actual[0])
+        self.assertEqual(expected[1], actual[1])
 
     def test_ReturnsInvalidMarkupLinks(self):
         mock_link_request_result = MagicMock()

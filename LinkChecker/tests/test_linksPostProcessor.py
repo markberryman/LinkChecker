@@ -4,7 +4,7 @@ from unittest.mock import MagicMock
 
 
 class LinksPostProcessor_ApplyTransformsAndFiltersTests(unittest.TestCase):
-    def test_TransformsApplied(self):
+    def test_AppliesTransforms(self):
         dummy_links = "links"
         dummy_processing_context = "context"
         mock_link_transform_processor = MagicMock()
@@ -17,7 +17,7 @@ class LinksPostProcessor_ApplyTransformsAndFiltersTests(unittest.TestCase):
         mock_link_transform_processor.apply_transformers.assert_called_with(
             dummy_processing_context, dummy_links)
 
-    def test_FiltersApplied(self):
+    def test_AppliesFilters(self):
         dummy_links = "links"
         mock_link_filter_processor = MagicMock()
         sut = linksPostProcessor.LinksPostProcessor(

@@ -2,7 +2,7 @@ from modifiers import linkFilter
 import unittest
 
 
-class MailToFilterTests(unittest.TestCase):
+class MailToFilter_ShouldFilterTests(unittest.TestCase):
     def test_FiltersMailToLinks(self):
         sut = linkFilter.MailToFilter()
 

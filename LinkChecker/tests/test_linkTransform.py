@@ -3,7 +3,7 @@ from modifiers import linkTransform
 import unittest
 
 
-class LowerCaseTransformUnitTests(unittest.TestCase):
+class LinkTransform_LowerCaseTransformUnitTests(unittest.TestCase):
     def test_OnlyLowerCasesUrlSchemeAndNetloc(self):
         dummyLink = link.Link("HTTP://WWW.FOO.COM/SOMEPATH/INDEX.HTML?A=FOO")
         expected = "http://www.foo.com/SOMEPATH/INDEX.HTML?A=FOO"
