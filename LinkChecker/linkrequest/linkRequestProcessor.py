@@ -1,3 +1,4 @@
+import http.client
 from . import linkRequestResult
 
 
@@ -8,6 +9,7 @@ class LinkRequestProcessor:
         self._response_processor = response_processor
 
     def _make_request_and_process_response(self, url, read_response):
+        # todo - also get the response headers
         response = self._url_requester.request_url(url)
         
         response_data, result_status_code = self._response_processor.process_response(
@@ -27,5 +29,10 @@ class LinkRequestProcessor:
         response_data, result_status_code = self._make_request_and_process_response(
             url, link_request.read_response)
 
+        print("[{}] {}\n  --> {}\n".format(result_status_code,
+                                          http.client.responses[result_status_code].upper(),
+                                          url))
+        
+        # todo - add response headers
         return linkRequestResult.LinkRequestResult(
             url, result_status_code, response_data)

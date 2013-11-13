@@ -25,6 +25,7 @@ class LinkRequestResultProcessor(object):
                     except html.parser.HTMLParseError:
                         invalid_markup_links.add(link_request_result.link_url)
             else:
+                # todo - handle 302's here?; add them as a "good link"
                 broken_links.add(
                     (link_request_result.link_url, link_request_result.status_code))
 
