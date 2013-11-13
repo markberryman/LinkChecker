@@ -17,13 +17,16 @@ class ResponseProcessor(object):
         return result
 
     def process_response(self, response, read_response):
-        """Examines response and returns appropriate
-        status code and response data if desired."""
+        """Breaks down response and returns status code, select response 
+        headers and data if requested."""
         response_data = None
+        location_header = None
         result_status_code = None
 
         if (response is not None):
             result_status_code = response.status
+            # only getting the Location header b/c we use it to handle 302 responses
+            location_header = response.headers["Location"]
         
             if (read_response):
                 response_data = self._read_response(response)
@@ -31,4 +34,4 @@ class ResponseProcessor(object):
             # something went wrong w/ the request
             result_status_code = http.client.GATEWAY_TIMEOUT
 
-        return response_data, result_status_code
+        return response_data, result_status_code, location_header

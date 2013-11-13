@@ -20,8 +20,8 @@ import urlParseWrapper
 startLink = link.Link(
     #"http://www.microsoft.com/en-us/default.aspx")
     #"http://www.markwberryman.com/")
-    "http://apigee.com/about/customers/bechtel-improving-workforce-efficiency-and-productivity-through-apis")
-    #"http://www.microsoft.com")
+    #"http://apigee.com/about/customers/bechtel-improving-workforce-efficiency-and-productivity-through-apis")
+    "http://www.microsoft.com")
 
 depth = 2
 
