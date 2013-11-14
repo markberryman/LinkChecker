@@ -3,11 +3,11 @@ import unittest
 from unittest.mock import MagicMock
 
 
-class ResponseProcessor_ProcessLinkTests(unittest.TestCase):
+class ResponseProcessor_ProcessMarkupTests(unittest.TestCase):
     def test_RaisesTypeErrorIfLinkRequestResultIsNone(self):
         sut = responseProcessor.ResponseProcessor(None, None)
 
-        self.assertRaises(TypeError, sut.process_link, None)
+        self.assertRaises(TypeError, sut.process_markup, None)
 
     def test_InvokesLinksPostProcessor(self):
         dummy_link_url = "url"
@@ -23,7 +23,7 @@ class ResponseProcessor_ProcessLinkTests(unittest.TestCase):
         sut = responseProcessor.ResponseProcessor(
             mock_html_link_parser, mock_links_post_processor)
 
-        sut.process_link(mock_link_request_result)
+        sut.process_markup(mock_link_request_result)
 
         mock_links_post_processor.apply_transforms_and_filters.assert_called_with(
             dummy_links_from_markup, dummy_processing_context)
@@ -38,7 +38,7 @@ class ResponseProcessor_ProcessLinkTests(unittest.TestCase):
             mock_html_link_parser, mock_links_post_processor)
         expected = dummy_links_from_markup
 
-        actual = sut.process_link(mock_link_request_result)
+        actual = sut.process_markup(mock_link_request_result)
 
         self.assertEqual(expected, actual)
 

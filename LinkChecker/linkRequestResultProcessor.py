@@ -31,7 +31,7 @@ class LinkRequestResultProcessor(object):
                 else:
                     if (link_request_result.response is not None):
                         try:
-                            new_links = set(self._link_processor.process_link(link_request_result))
+                            new_links = set(self._link_processor.process_markup(link_request_result))
                         except html.parser.HTMLParseError:
                             invalid_markup_links.add(link_request_result.link_url)
             else:

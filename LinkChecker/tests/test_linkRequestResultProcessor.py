@@ -25,7 +25,7 @@ class LinkRequestResultProcessor_ProcessLinkRequestResultTests(unittest.TestCase
         mock_link_request_result.link_url = "url"
         mock_link_request_results = [mock_link_request_result]
         mock_link_processor = MagicMock()
-        mock_link_processor.process_link = MagicMock(side_effect=html.parser.HTMLParseError("error"))
+        mock_link_processor.process_markup = MagicMock(side_effect=html.parser.HTMLParseError("error"))
         sut = linkRequestResultProcessor.LinkRequestResultProcessor(mock_link_processor)
         sut._is_link_broken = MagicMock(return_value=False)
         expected = "url"
@@ -40,7 +40,7 @@ class LinkRequestResultProcessor_ProcessLinkRequestResultTests(unittest.TestCase
         mock_link_request_result = MagicMock()
         mock_link_request_results = [mock_link_request_result]
         mock_link_processor = MagicMock()
-        mock_link_processor.process_link = MagicMock(return_value=dummy_links)
+        mock_link_processor.process_markup = MagicMock(return_value=dummy_links)
         sut = linkRequestResultProcessor.LinkRequestResultProcessor(mock_link_processor)
         sut._is_link_broken = MagicMock(return_value=False)
         expected = set().union(set(dummy_links))
