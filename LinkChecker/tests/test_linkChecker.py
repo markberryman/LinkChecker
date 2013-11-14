@@ -46,7 +46,7 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
         parallel_link_requester = linkRequester.LinkRequester(
             3, link_request_processor.process_link_request, queue.Queue(), queue.Queue())
         link_request_result_processor = linkRequestResultProcessor.LinkRequestResultProcessor(response_processor)
-        sut = linkChecker.LinkChecker(response_processor, parallel_link_requester, link_request_result_processor, depth)
+        sut = linkChecker.LinkChecker(parallel_link_requester, link_request_result_processor, depth)
 
         results = sut.check_links(start_link)
 
@@ -77,7 +77,7 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
         parallel_link_requester = linkRequester.LinkRequester(
             3, link_request_processor.process_link_request, queue.Queue(), queue.Queue())
         link_request_result_processor = linkRequestResultProcessor.LinkRequestResultProcessor(response_processor)
-        sut = linkChecker.LinkChecker(response_processor, parallel_link_requester, link_request_result_processor, depth)
+        sut = linkChecker.LinkChecker(parallel_link_requester, link_request_result_processor, depth)
 
         results = sut.check_links(start_link)
 

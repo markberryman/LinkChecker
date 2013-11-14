@@ -4,9 +4,8 @@ from linkrequest import linkRequest
 
 class LinkChecker:
     def __init__(
-            self, linkProcessor, link_requester, 
+            self, link_requester, 
             link_request_result_processor, maxDepth):
-        self.linkProcessor = linkProcessor
         self.linksRequested = set()
         # tuples of link url and status code
         self.brokenLinks = set()

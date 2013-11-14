@@ -51,7 +51,7 @@ p_link_requester = linkRequester.LinkRequester(
 link_request_result_processor = linkRequestResultProcessor.LinkRequestResultProcessor(link_processor)
 
 checker = linkChecker.LinkChecker(
-    link_processor, p_link_requester, link_request_result_processor, depth)
+    p_link_requester, link_request_result_processor, depth)
 
 results = checker.check_links(startLink)
 
