@@ -46,12 +46,12 @@ links_post_processor = linksPostProcessor.LinksPostProcessor(
     link_filter_processor, link_transform_processor)
 link_processor = linkProcessor.LinkProcessor(
     html_link_parser, links_post_processor)
-p_link_requester = linkRequester.LinkRequester(
+link_requester = linkRequester.LinkRequester(
     25, link_request_processor.process_link_request, queue.Queue(), queue.Queue())
 link_request_result_processor = linkRequestResultProcessor.LinkRequestResultProcessor(link_processor)
 
 checker = linkChecker.LinkChecker(
-    p_link_requester, link_request_result_processor, depth)
+    link_requester, link_request_result_processor, depth)
 
 results = checker.check_links(startLink)
 
