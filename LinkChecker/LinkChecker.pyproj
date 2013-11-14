@@ -38,7 +38,7 @@
     <Compile Include="main.py" />
     <Compile Include="linkRequester.py" />
     <Compile Include="linkrequest\linkRequestProcessor.py" />
-    <Compile Include="responseProcessor.py" />
+    <Compile Include="responseBuilder.py" />
     <Compile Include="tests\test_linkChecker.py" />
     <Compile Include="tests\test_linkFilterProcessor.py" />
     <Compile Include="tests\test_linkFilter.py" />

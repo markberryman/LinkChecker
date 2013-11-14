@@ -32,9 +32,9 @@ http_conn_wrapper = httpConnWrapper.HttpConnWrapper()
 url_parse_wrapper = urlParseWrapper.UrlParseWrapper()
 url_requester = urlRequester.UrlRequester(
     http_conn_wrapper, url_parse_wrapper)
-response_processor = responseBuilder.ResponseBuilder()
+response_builder = responseBuilder.ResponseBuilder()
 link_request_processor = linkRequestProcessor.LinkRequestProcessor(
-    url_requester, response_processor)
+    url_requester, response_builder)
 link_filters = [linkFilter.MailToFilter(), linkFilter.DomainCheckFilter(startLink.url)]
 link_transformers = [linkTransform.RelativeLinkTransform(),
                     linkTransform.LowerCaseTransform()]

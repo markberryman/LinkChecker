@@ -10,9 +10,9 @@ from linkrequest import linkRequestProcessor
 import linkRequestResultProcessor
 from modifiers import linkTransform
 from modifiers import linkTransformProcessor
-import linkProcessor
 import linkRequester
 import responseBuilder
+import responseProcessor
 import queue
 import unittest
 import urlParseWrapper
@@ -41,12 +41,12 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
         link_transform_processor = linkTransformProcessor.LinkTransformProcessor(link_transformers)
         links_post_processor = linksPostProcessor.LinksPostProcessor(
             link_filter_processor, link_transform_processor)
-        link_processor = linkProcessor.LinkProcessor(
+        response_processor = responseProcessor.ResponseProcessor(
             html_link_parser, links_post_processor)
         parallel_link_requester = linkRequester.LinkRequester(
             3, link_request_processor.process_link_request, queue.Queue(), queue.Queue())
-        link_request_result_processor = linkRequestResultProcessor.LinkRequestResultProcessor(link_processor)
-        sut = linkChecker.LinkChecker(link_processor, parallel_link_requester, link_request_result_processor, depth)
+        link_request_result_processor = linkRequestResultProcessor.LinkRequestResultProcessor(response_processor)
+        sut = linkChecker.LinkChecker(response_processor, parallel_link_requester, link_request_result_processor, depth)
 
         results = sut.check_links(start_link)
 
@@ -72,12 +72,12 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
         link_request_processor = linkRequestProcessor.LinkRequestProcessor(
             url_requester, response_processor)
         html_link_parser = htmlLinkParser.HTMLLinkParser()
-        link_processor = linkProcessor.LinkProcessor(
+        response_processor = responseProcessor.ResponseProcessor(
             html_link_parser, None)
         parallel_link_requester = linkRequester.LinkRequester(
             3, link_request_processor.process_link_request, queue.Queue(), queue.Queue())
-        link_request_result_processor = linkRequestResultProcessor.LinkRequestResultProcessor(link_processor)
-        sut = linkChecker.LinkChecker(link_processor, parallel_link_requester, link_request_result_processor, depth)
+        link_request_result_processor = linkRequestResultProcessor.LinkRequestResultProcessor(response_processor)
+        sut = linkChecker.LinkChecker(response_processor, parallel_link_requester, link_request_result_processor, depth)
 
         results = sut.check_links(start_link)
 

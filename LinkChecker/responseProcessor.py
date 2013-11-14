@@ -1,7 +1,6 @@
-class LinkProcessor(object):
-    """Processes the result of making a request for a link. This involves 
-    processing the markup to look for new links and then applying transforms 
-    and filters to those links."""
+class ResponseProcessor(object):
+    """Processes response data to find new links."""
+
     def __init__(
             self, html_link_parser,
             links_post_processor):
