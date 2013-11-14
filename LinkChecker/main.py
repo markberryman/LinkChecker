@@ -12,7 +12,7 @@ from modifiers import linkFilterProcessor
 from modifiers import linkTransform
 from modifiers import linkTransformProcessor
 import linkRequester
-import responseProcessor
+import responseBuilder
 import queue
 
 import urlParseWrapper
@@ -32,7 +32,7 @@ http_conn_wrapper = httpConnWrapper.HttpConnWrapper()
 url_parse_wrapper = urlParseWrapper.UrlParseWrapper()
 url_requester = urlRequester.UrlRequester(
     http_conn_wrapper, url_parse_wrapper)
-response_processor = responseProcessor.ResponseProcessor()
+response_processor = responseBuilder.ResponseBuilder()
 link_request_processor = linkRequestProcessor.LinkRequestProcessor(
     url_requester, response_processor)
 link_filters = [linkFilter.MailToFilter(), linkFilter.DomainCheckFilter(startLink.url)]

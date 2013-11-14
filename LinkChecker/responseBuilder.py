@@ -1,7 +1,9 @@
 import http.client
 
 
-class ResponseProcessor(object):
+class ResponseBuilder(object):
+    """Breaks down a web response into component parts."""
+
     def _read_response(self, response):
         result = None
 
