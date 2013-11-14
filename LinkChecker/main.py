@@ -4,7 +4,6 @@ import httpConnWrapper
 from link import link
 import linkChecker
 import linksPostProcessor
-import linkProcessor
 from linkrequest import linkRequestProcessor
 import linkRequestResultProcessor
 from modifiers import linkFilter
@@ -13,6 +12,7 @@ from modifiers import linkTransform
 from modifiers import linkTransformProcessor
 import linkRequester
 import responseBuilder
+import responseProcessor
 import queue
 
 import urlParseWrapper
@@ -44,11 +44,11 @@ link_transform_processor = linkTransformProcessor.LinkTransformProcessor(
     link_transformers)
 links_post_processor = linksPostProcessor.LinksPostProcessor(
     link_filter_processor, link_transform_processor)
-link_processor = linkProcessor.LinkProcessor(
+response_processor = responseProcessor.ResponseProcessor(
     html_link_parser, links_post_processor)
 link_requester = linkRequester.LinkRequester(
     25, link_request_processor.process_link_request, queue.Queue(), queue.Queue())
-link_request_result_processor = linkRequestResultProcessor.LinkRequestResultProcessor(link_processor)
+link_request_result_processor = linkRequestResultProcessor.LinkRequestResultProcessor(response_processor)
 
 checker = linkChecker.LinkChecker(
     link_requester, link_request_result_processor, depth)
