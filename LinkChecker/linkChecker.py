@@ -20,7 +20,7 @@ class LinkChecker:
         print("Number of links checked = {}".
               format(len(results["linksRequested"])))
 
-        self.__print_links(results["linksRequested"])
+        self._print_links(results["linksRequested"])
 
         print("")
         print("Number of broken links = {}".
@@ -39,9 +39,9 @@ class LinkChecker:
 
         if (len(results["invalidMarkupLinks"]) > 0):
             print("Invalid markup links:")
-            self.__print_links(results["invalidMarkupLinks"])
+            self._print_links(results["invalidMarkupLinks"])
 
-    def __print_links(self, links):
+    def _print_links(self, links):
         links = sorted(links)
 
         for l in links:
@@ -60,7 +60,7 @@ class LinkChecker:
 
         links_to_process.clear()
 
-    def __check_links_helper(self, linksToProcess):
+    def _check_links_helper(self, linksToProcess):
         # breadth-first search of links
         for depth in range(1, self.maxDepth + 1):
             print("\nProcessing {} link(s) at depth {}."
@@ -85,7 +85,7 @@ class LinkChecker:
 
     def check_links(self, startLink):
         self._link_requester.start()
-        self.__check_links_helper([startLink])
+        self._check_links_helper([startLink])
 
         return {
             "linksRequested": self.linksRequested,

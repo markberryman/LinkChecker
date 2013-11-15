@@ -16,7 +16,7 @@ class DomainCheckFilter(LinkFilter):
     def __init__(self, baseLink):
         self.baseHostname = urlparse(baseLink).hostname
 
-    def __is_top_level_and_first_subdomain_equal(self, link):
+    def _is_top_level_and_first_subdomain_equal(self, link):
         result = True
 
         linkHostnameSegments = urlparse(link).hostname.split(".")
@@ -42,6 +42,6 @@ class DomainCheckFilter(LinkFilter):
         else:
             if ((urlparse(link).hostname is not None) and
                     (self.baseHostname is not None)):
-                result = self.__is_top_level_and_first_subdomain_equal(link)
+                result = self._is_top_level_and_first_subdomain_equal(link)
 
         return result
