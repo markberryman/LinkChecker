@@ -32,7 +32,6 @@ class UrlRequester(object):
         conn = self._make_request(urlParts)
 
         try:
-            # todo - get response headers
             result = conn.getresponse()
         except socket.error as msg:
             print("Socket error making request: {}".format(msg))
