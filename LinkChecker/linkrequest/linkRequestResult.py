@@ -6,7 +6,7 @@ class LinkRequestResult(object):
         self.__response = response
         self._location_header = location_header
 
-    def __eq__(self, other):
+    def equals(self, other):
         return ((self.link_url == other.link_url) and
                 (self.status_code == other.status_code) and
                 (self.response == other.response))

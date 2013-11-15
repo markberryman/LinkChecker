@@ -22,7 +22,7 @@ class ResourceGetter_GetResourceTests(unittest.TestCase):
     
         actual = sut.process_link_request(mock_link_request)
 
-        self.assertEqual(expected, actual)
+        self.assertTrue(expected.equals(actual))
 
 
 if __name__ == '__main__':
