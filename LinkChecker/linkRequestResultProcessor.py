@@ -19,7 +19,6 @@ class LinkRequestResultProcessor(object):
         for link_request_result in link_request_results:
             if (self._is_link_broken(link_request_result.status_code) is False):
                 try:
-                    # todo - package all of these params in a value in a LRRR?
                     new_links = self._response_processor.process_response(
                         link_request_result.response, link_request_result.link_url,
                         link_request_result.status_code,
