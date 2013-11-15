@@ -7,6 +7,8 @@ from unittest.mock import MagicMock
 class ResponseProcessor_ProcessResponseTests(unittest.TestCase):
     def test_ReturnsLinksFoundInMarkup(self):
         links = set()
+        mock_html_link_parser = MagicMock()
+        mock_html_link_parser.parse_markup = MagicMock(return_value=links)
         sut = responseProcessor.ResponseProcessor(None, None)
         sut._process_markup = MagicMock(return_value=links)
         expected = links
@@ -18,7 +20,6 @@ class ResponseProcessor_ProcessResponseTests(unittest.TestCase):
     def test_ReturnsLinkAssociatedWith302(self):
         link = "link"
         sut = responseProcessor.ResponseProcessor(None, None)
-        sut._process_markup = MagicMock()
         sut._process_302_response = MagicMock(return_value=link)
         expected = set([link])
 

@@ -11,14 +11,6 @@ class ResponseProcessor(object):
         self._html_link_parser = html_link_parser
         self._links_post_processor = links_post_processor
 
-    def _process_markup(self, markup):
-        """Parses markup for new links and returns set of new links."""
-
-        # todo - inline this method?
-
-        # todo - rename "parse_markup" method to "get_links_from_markup"
-        return self._html_link_parser.parse_markup(markup)
-
     # todo - inline this method?
     def _process_302_response(self, location_header):
         return link.Link(location_header, linkType.LinkType.ANCHOR)
@@ -29,10 +21,12 @@ class ResponseProcessor(object):
         new location associated with a 302 response."""
         links = set()
         
-        links_from_markup = self._process_markup(markup)
+        # todo - rename "parse_markup" method to "get_links_from_markup"
+        if (self._html_link_parser is not None):
+            links_from_markup = self._html_link_parser.parse_markup(markup)
 
-        if (links_from_markup is not None):
-            links = links.union(links_from_markup)
+            if (links_from_markup is not None):
+                links = links.union(links_from_markup)
 
         if (status_code == http.client.FOUND):
             links.add(self._process_302_response(location_header))
