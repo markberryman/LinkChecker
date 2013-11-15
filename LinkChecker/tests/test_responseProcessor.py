@@ -1,4 +1,5 @@
 import http.client
+from link import link, linkType
 import responseProcessor
 import unittest
 from unittest.mock import MagicMock
@@ -18,14 +19,15 @@ class ResponseProcessor_ProcessResponseTests(unittest.TestCase):
         self.assertEqual(expected, actual)
 
     def test_ReturnsLinkAssociatedWith302(self):
-        link = "link"
+        dummy_location_header = "link"
         sut = responseProcessor.ResponseProcessor(None, None)
-        sut._process_302_response = MagicMock(return_value=link)
-        expected = set([link])
+        expected = link.Link(dummy_location_header, linkType.LinkType.MOVED)
 
-        actual = sut.process_response(None, None, http.client.FOUND, None)
+        actual = sut.process_response(None, None, http.client.FOUND, dummy_location_header).pop()
 
-        self.assertEqual(expected, actual)
+        # todo - use Link equality
+        self.assertEqual(expected.url, actual.url)
+        self.assertEqual(expected.type, actual.type)
 
     def test_InvokesPostProcessor(self):
         dummy_link = "link"

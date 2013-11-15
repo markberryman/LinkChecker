@@ -13,8 +13,7 @@ class ResponseProcessor(object):
 
     # not inlining this method yet since it makes unit testing a bit easier
     def _process_302_response(self, location_header):
-        # todo - consider creating a new link type?
-        return link.Link(location_header, linkType.LinkType.ANCHOR)
+        return link.Link(location_header, linkType.LinkType.MOVED)
 
     def process_response(self, markup, link_url, status_code, location_header):
         """Returns links found in markup and returns link corresponding to

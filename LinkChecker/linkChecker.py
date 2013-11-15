@@ -50,8 +50,10 @@ class LinkChecker:
     def _create_requests(self, links_to_process, is_leaf_request):
         for link in links_to_process:
             # don't need to read response for last link depth (aka leaf requests)
-            shouldReadResponse = ((link.type == linkType.LinkType.ANCHOR) and
-                                    (is_leaf_request is False))
+            shouldReadResponse = (
+                (link.type == linkType.LinkType.ANCHOR) and
+                (is_leaf_request is False)
+                )
             linkRequestWorkItem = linkRequest.LinkRequest(link.url, shouldReadResponse)
             self._link_requester.add_work(linkRequestWorkItem)
             self.linksRequested.add(link.url)
