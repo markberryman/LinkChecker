@@ -7,11 +7,6 @@ import unittest
 
 
 class LinkFilterProcessor_ApplyFiltersTests(unittest.TestCase):
-    def test_RaisesTypeErrorIfLinksIsNone(self):
-        sut = linkFilterProcessor.LinkFilterProcessor(None)
-
-        self.assertRaises(TypeError, sut.apply_filters, None)
-
     def test_AppliesFiltersToEveryLinkIfNotFiltered(self):
         mockFilter1 = linkFilter.LinkFilter()
         mockFilter2 = linkFilter.LinkFilter()

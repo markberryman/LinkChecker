@@ -25,6 +25,7 @@
     <Compile Include="htmlLinkParser.py" />
     <Compile Include="httpConnWrapper.py" />
     <Compile Include="linkRequestResultProcessor.py" />
+    <Compile Include="linksPostProcessor.py" />
     <Compile Include="link\link.py" />
     <Compile Include="linkChecker.py" />
     <Compile Include="modifiers\linkFilter.py" />

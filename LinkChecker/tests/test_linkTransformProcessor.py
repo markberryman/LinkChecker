@@ -12,11 +12,6 @@ class LinkTransformProcessor_ApplyTransformersTests(unittest.TestCase):
 
         self.assertRaises(TypeError, sut.apply_transformers, None, "some link")
 
-    def test_RaisesTypeErrorIfLinksIsNone(self):
-        sut = linkTransformProcessor.LinkTransformProcessor(None)
-
-        self.assertRaises(TypeError, sut.apply_transformers, "some context", None)
-
     def test_AppliesAllTransformsToAllLinks(self):
         mock_transform_1 = linkTransform.LinkTransform()
         mock_transform_2 = linkTransform.LinkTransform()

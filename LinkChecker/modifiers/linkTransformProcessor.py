@@ -9,9 +9,7 @@ class LinkTransformProcessor(object):
         processing_context contains add'l info required by some transforms."""
         if (processing_context is None):
             raise TypeError("processing_context can not be None.")
-
-        if (links is None):
-            raise TypeError("links can not be None.")
-
-        for transformer in self.transformers:
-            [transformer.transform(processing_context, link) for link in links]
+        
+        if (links is not None):
+            for transformer in self.transformers:
+                [transformer.transform(processing_context, link) for link in links]

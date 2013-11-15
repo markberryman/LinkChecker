@@ -28,9 +28,9 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
         url_parse_wrapper = urlParseWrapper.UrlParseWrapper()
         url_requester = urlRequester.UrlRequester(
             http_conn_wrapper, url_parse_wrapper)
-        response_processor = responseBuilder.ResponseBuilder()
+        response_builder = responseBuilder.ResponseBuilder()
         link_request_processor = linkRequestProcessor.LinkRequestProcessor(
-            url_requester, response_processor)
+            url_requester, response_builder)
         link_filters = set(
             [linkFilter.MailToFilter(),
                 linkFilter.DomainCheckFilter(start_link.url)])
@@ -43,10 +43,10 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
             link_filter_processor, link_transform_processor)
         response_processor = responseProcessor.ResponseProcessor(
             html_link_parser, links_post_processor)
-        parallel_link_requester = linkRequester.LinkRequester(
+        link_requester = linkRequester.LinkRequester(
             3, link_request_processor.process_link_request, queue.Queue(), queue.Queue())
         link_request_result_processor = linkRequestResultProcessor.LinkRequestResultProcessor(response_processor)
-        sut = linkChecker.LinkChecker(parallel_link_requester, link_request_result_processor, depth)
+        sut = linkChecker.LinkChecker(link_requester, link_request_result_processor, depth)
 
         results = sut.check_links(start_link)
 
@@ -68,16 +68,16 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
         url_parse_wrapper = urlParseWrapper.UrlParseWrapper()
         url_requester = urlRequester.UrlRequester(
             http_conn_wrapper, url_parse_wrapper)
-        response_processor = responseBuilder.ResponseBuilder()
+        response_builder = responseBuilder.ResponseBuilder()
         link_request_processor = linkRequestProcessor.LinkRequestProcessor(
-            url_requester, response_processor)
+            url_requester, response_builder)
         html_link_parser = htmlLinkParser.HTMLLinkParser()
         response_processor = responseProcessor.ResponseProcessor(
             html_link_parser, None)
-        parallel_link_requester = linkRequester.LinkRequester(
+        link_requester = linkRequester.LinkRequester(
             3, link_request_processor.process_link_request, queue.Queue(), queue.Queue())
         link_request_result_processor = linkRequestResultProcessor.LinkRequestResultProcessor(response_processor)
-        sut = linkChecker.LinkChecker(parallel_link_requester, link_request_result_processor, depth)
+        sut = linkChecker.LinkChecker(link_requester, link_request_result_processor, depth)
 
         results = sut.check_links(start_link)
 

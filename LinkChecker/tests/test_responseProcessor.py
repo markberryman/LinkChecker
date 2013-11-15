@@ -1,44 +1,56 @@
+import http.client
 import responseProcessor
 import unittest
 from unittest.mock import MagicMock
 
 
-class ResponseProcessor_ProcessMarkupTests(unittest.TestCase):
-    def test_RaisesTypeErrorIfLinkRequestResultIsNone(self):
+class ResponseProcessor_ProcessResponseTests(unittest.TestCase):
+    def test_ReturnsLinksFoundInMarkup(self):
+        links = set()
         sut = responseProcessor.ResponseProcessor(None, None)
+        sut._process_markup = MagicMock(return_value=links)
+        expected = links
 
-        self.assertRaises(TypeError, sut.process_markup, None)
+        actual = sut.process_response(None, None, None, None)
 
-    def test_InvokesLinksPostProcessor(self):
-        dummy_link_url = "url"
-        mock_link_request_result = MagicMock()
-        mock_link_request_result.link_url = dummy_link_url
-        mock_html_link_parser = MagicMock()
-        dummy_links_from_markup = "links"
-        mock_html_link_parser.parse_markup = MagicMock(return_value=dummy_links_from_markup)
+        self.assertEqual(expected, actual)
+
+    def test_ReturnsLinkAssociatedWith302(self):
+        link = "link"
+        sut = responseProcessor.ResponseProcessor(None, None)
+        sut._process_markup = MagicMock()
+        sut._process_302_response = MagicMock(return_value=link)
+        expected = set([link])
+
+        actual = sut.process_response(None, None, http.client.FOUND, None)
+
+        self.assertEqual(expected, actual)
+
+    def test_InvokesPostProcessor(self):
+        dummy_link = "link"
         dummy_processing_context = {
-            "current_link_url": dummy_link_url
+            "current_link_url": dummy_link
         }
+        dummy_links_from_markup = set()
         mock_links_post_processor = MagicMock()
-        sut = responseProcessor.ResponseProcessor(
-            mock_html_link_parser, mock_links_post_processor)
+        mock_links_post_processor.apply_transforms_and_filters = MagicMock()
+        sut = responseProcessor.ResponseProcessor(None, mock_links_post_processor)
+        sut._process_markup = MagicMock(return_value=dummy_links_from_markup)
 
-        sut.process_markup(mock_link_request_result)
+        sut.process_response(None, dummy_link, None, None)
 
         mock_links_post_processor.apply_transforms_and_filters.assert_called_with(
             dummy_links_from_markup, dummy_processing_context)
-    
-    def test_ReturnsLinksFromPostProcessor(self):
-        mock_link_request_result = MagicMock()
-        dummy_links_from_markup = "links"
-        mock_links_post_processor = MagicMock()
-        mock_links_post_processor.apply_transforms_and_filters = MagicMock(return_value=dummy_links_from_markup)
-        mock_html_link_parser = MagicMock()
-        sut = responseProcessor.ResponseProcessor(
-            mock_html_link_parser, mock_links_post_processor)
-        expected = dummy_links_from_markup
 
-        actual = sut.process_markup(mock_link_request_result)
+    def test_ReturnsLinksFromPostProcessor(self):
+        links = set()
+        mock_links_post_processor = MagicMock()
+        mock_links_post_processor.apply_transforms_and_filters = MagicMock(return_value=links)
+        sut = responseProcessor.ResponseProcessor(None, mock_links_post_processor)
+        sut._process_markup = MagicMock()
+        expected = links
+
+        actual = sut.process_response(None, None, None, None)
 
         self.assertEqual(expected, actual)
 
