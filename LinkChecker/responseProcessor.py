@@ -11,11 +11,10 @@ class ResponseProcessor(object):
         self._html_link_parser = html_link_parser
         self._links_post_processor = links_post_processor
 
-    # todo - inline this method?
+    # not inlining this method yet since it makes unit testing a bit easier
     def _process_302_response(self, location_header):
         return link.Link(location_header, linkType.LinkType.ANCHOR)
 
-    # todo - add unit tests
     def process_response(self, markup, link_url, status_code, location_header):
         """Returns links found in markup and returns link corresponding to
         new location associated with a 302 response."""
