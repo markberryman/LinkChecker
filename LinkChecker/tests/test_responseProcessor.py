@@ -25,9 +25,7 @@ class ResponseProcessor_ProcessResponseTests(unittest.TestCase):
 
         actual = sut.process_response(None, None, http.client.FOUND, dummy_location_header).pop()
 
-        # todo - use Link equality
-        self.assertEqual(expected.url, actual.url)
-        self.assertEqual(expected.type, actual.type)
+        self.assertTrue(expected.equals(actual))
 
     def test_InvokesPostProcessor(self):
         dummy_link = "link"
