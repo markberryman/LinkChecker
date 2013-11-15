@@ -14,7 +14,7 @@ class HTMLLinkParser(HTMLParser):
             "img": self._process_image_tag
             }
 
-    def parse_markup(self, markup):
+    def find_links(self, markup):
         self.links = set()
 
         if (markup is None):

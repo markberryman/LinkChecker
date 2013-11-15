@@ -21,9 +21,8 @@ class ResponseProcessor(object):
         new location associated with a 302 response."""
         links = set()
         
-        # todo - rename "parse_markup" method to "get_links_from_markup"
         if (self._html_link_parser is not None):
-            links_from_markup = self._html_link_parser.parse_markup(markup)
+            links_from_markup = self._html_link_parser.find_links(markup)
 
             if (links_from_markup is not None):
                 links = links.union(links_from_markup)

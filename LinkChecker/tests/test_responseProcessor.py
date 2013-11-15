@@ -8,7 +8,7 @@ class ResponseProcessor_ProcessResponseTests(unittest.TestCase):
     def test_ReturnsLinksFoundInMarkup(self):
         links = set()
         mock_html_link_parser = MagicMock()
-        mock_html_link_parser.parse_markup = MagicMock(return_value=links)
+        mock_html_link_parser.find_links = MagicMock(return_value=links)
         sut = responseProcessor.ResponseProcessor(None, None)
         sut._process_markup = MagicMock(return_value=links)
         expected = links
