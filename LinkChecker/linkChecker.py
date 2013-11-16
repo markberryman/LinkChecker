@@ -5,14 +5,14 @@ from linkrequest import linkRequest
 class LinkChecker:
     def __init__(
             self, link_requester, 
-            link_request_result_processor, maxDepth):
+            link_request_result_processor, max_depth):
         self.linksRequested = set()
         # tuples of link url and status code
         self.brokenLinks = set()
         self.invalidMarkupLinks = set()
         self._link_requester = link_requester
         self._link_request_result_processor = link_request_result_processor
-        self.maxDepth = maxDepth
+        self.maxDepth = max_depth
 
     def print_results(self, results):
         print("")
@@ -86,9 +86,9 @@ class LinkChecker:
 
             self.brokenLinks = self.brokenLinks.union(broken_links)
 
-    def check_links(self, startLink):
+    def check_links(self, start_link):
         self._link_requester.start()
-        self._check_links_helper([startLink])
+        self._check_links_helper([start_link])
 
         return {
             "linksRequested": self.linksRequested,
