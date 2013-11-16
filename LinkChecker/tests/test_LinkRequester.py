@@ -3,6 +3,13 @@ import unittest
 from unittest.mock import MagicMock
 
 
+class LinkRequester_WorkerTests(unittest.TestCase):
+    # not defining unit tests for this method b/c of the
+    # while True loop; how to break out of this from
+    # within a test?
+    pass
+
+
 class LinkRequester_AddWorkTests(unittest.TestCase):
     def test_RaisesTypeErrorIfItemIsNone(self):
         sut = linkRequester.LinkRequester(1, None, None, None)
