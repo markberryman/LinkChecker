@@ -7,7 +7,7 @@ class LinkRequester(object):
         self._input_queue = input_queue
         self._output_queue = output_queue
         self.num_worker_threads = num_worker_threads
-        self.workFn = work_fn
+        self.work_fn = work_fn
 
     def start(self):
         for i in range(self.num_worker_threads):
@@ -18,7 +18,7 @@ class LinkRequester(object):
     def worker(self):
         while True:
             workRequest = self._input_queue.get()
-            result = self.workFn(workRequest)
+            result = self.work_fn(workRequest)
             self._output_queue.put(result)
             # using the built-in queue work tracking
             # method to indicate work completed by thread
