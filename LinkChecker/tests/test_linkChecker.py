@@ -63,7 +63,7 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
     def test_SimpleDepthProcessingTest(self):
         base_start_url = "http://localhost:35944/SimpleDepthProcessingTest"
         start_link = link.Link(base_start_url + "/depth1.html")
-        depth = 3
+        depth = 40
         http_conn_wrapper = httpConnWrapper.HttpConnWrapper()
         url_parse_wrapper = urlParseWrapper.UrlParseWrapper()
         url_requester = urlRequester.UrlRequester(

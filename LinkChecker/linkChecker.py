@@ -60,13 +60,16 @@ class LinkChecker:
 
         links_to_process.clear()
 
-    def _check_links_helper(self, linksToProcess):
+    def _check_links_helper(self, links_to_process):
         # breadth-first search of links
         for depth in range(1, self.maxDepth + 1):
-            print("\nProcessing {} link(s) at depth {}."
-                  .format(len(linksToProcess), depth))
+            if (len(links_to_process) == 0):
+                break
 
-            self._create_requests(linksToProcess, depth == self.maxDepth)
+            print("\nProcessing {} link(s) at depth {}."
+                  .format(len(links_to_process), depth))
+
+            self._create_requests(links_to_process, depth == self.maxDepth)
 
             # get results; blocking until all link processing completed
             print("\nAwaiting results...\n")
@@ -76,7 +79,7 @@ class LinkChecker:
                 linkRequestResults)
 
             # filter out links previously requested
-            linksToProcess.extend(
+            links_to_process.extend(
                 good_links.difference(self.linksRequested))
 
             self.invalidMarkupLinks = self.invalidMarkupLinks.union(invalid_markup_links)
