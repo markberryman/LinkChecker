@@ -3,11 +3,11 @@ import threading
 
 class LinkRequester(object):
     """Parallel link processor."""
-    def __init__(self, num_worker_threads, workFn, input_queue, output_queue):
+    def __init__(self, num_worker_threads, work_fn, input_queue, output_queue):
         self._input_queue = input_queue
         self._output_queue = output_queue
         self.num_worker_threads = num_worker_threads
-        self.workFn = workFn
+        self.workFn = work_fn
 
     def start(self):
         for i in range(self.num_worker_threads):
