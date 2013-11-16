@@ -53,8 +53,8 @@ class LinkChecker:
                 (link.type == linkType.LinkType.ANCHOR) and
                 (is_leaf_request is False)
                 )
-            linkRequestWorkItem = linkRequest.LinkRequest(link.url, shouldReadResponse)
-            self._link_requester.add_work(linkRequestWorkItem)
+            link_request_woork_item = linkRequest.LinkRequest(link.url, shouldReadResponse)
+            self._link_requester.add_work(link_request_woork_item)
             self._links_requested.add(link.url)
 
         links_to_process.clear()
@@ -72,10 +72,10 @@ class LinkChecker:
 
             # get results; blocking until all link processing completed
             print("\nAwaiting results...\n")
-            linkRequestResults = self._link_requester.get_results()
+            link_request_results = self._link_requester.get_results()
 
             good_links, invalid_markup_links, broken_links = self._link_request_result_processor.process_link_request_result(
-                linkRequestResults)
+                link_request_results)
 
             # filter out links previously requested
             links_to_process.extend(
