@@ -19,14 +19,14 @@ class DomainCheckFilter(LinkFilter):
     def _is_top_level_and_first_subdomain_equal(self, link):
         result = True
 
-        linkHostnameSegments = urlparse(link).hostname.split(".")
-        baseHostnameSegments = self.baseHostname.split(".")
+        # want to compare the last and second to last hostname segment
+        # reversing the strings to make the future comparison a bit simpler
+        link_hostname_segments = urlparse(link).hostname[::-1].split(".")
+        base_hostname_segments = self.baseHostname[::-1].split(".")
 
-        if ((linkHostnameSegments[len(linkHostnameSegments) - 1] ==
-                baseHostnameSegments[len(baseHostnameSegments) - 1]) and
-            (linkHostnameSegments[len(linkHostnameSegments) - 2] ==
-                baseHostnameSegments[len(baseHostnameSegments) - 2])):
-            result = False
+        result = (not 
+                  ((link_hostname_segments[0] == base_hostname_segments[0]) and
+                  (link_hostname_segments[1] == base_hostname_segments[1])))
 
         return result
 
