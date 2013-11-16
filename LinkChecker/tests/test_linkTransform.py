@@ -3,6 +3,17 @@ from modifiers import linkTransform
 import unittest
 
 
+class LinkTransform_EmptyPathTransformTests(unittest.TestCase):
+    def test_TrimsTrailingSlashForEmptyPath(self):
+        dummy_link = link.Link("http://foo.com/")
+        expected = "http://foo.com"
+        sut = linkTransform.EmptyPathTransform()
+
+        sut.transform(None, dummy_link)
+
+        self.assertEqual(expected, dummy_link.url)
+
+
 class LinkTransform_LowerCaseTransformUnitTests(unittest.TestCase):
     def test_OnlyLowerCasesUrlSchemeAndNetloc(self):
         dummyLink = link.Link("HTTP://WWW.FOO.COM/SOMEPATH/INDEX.HTML?A=FOO")
@@ -28,6 +39,7 @@ class LinkTransform_RelativeLinkTransformTests(unittest.TestCase):
 
         self.assertEqual(
             dummyNewLink.url, "http://www.foo.com/relativelink.html")
+
 
 
 if __name__ == '__main__':

@@ -39,3 +39,14 @@ class RelativeLinkTransform(LinkTransform):
         current_link_url = processing_context["current_link_url"]
 
         link.url = urljoin(current_link_url, link.url)
+
+
+class EmptyPathTransform(LinkTransform):
+    """Trims trailing slash from URL's like http://foo.com/."""
+
+    def transform(self, processing_context, link):        
+        if (link is None):
+            raise TypeError("link can not be None.")
+
+        if (urlparse(link.url).path == "/"):
+            link.url = link.url[:len(link.url) - 1]

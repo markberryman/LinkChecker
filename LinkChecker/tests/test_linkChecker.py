@@ -22,7 +22,7 @@ import urlParseWrapper
 class LinkChecker_CheckLinksTests(unittest.TestCase):
     def test_FunctionalE2ETest(self):
         base_start_url = "http://localhost:35944"
-        start_link = link.Link(base_start_url + "/index.html")
+        start_link = link.Link(base_start_url)
         depth = 3
         http_conn_wrapper = httpConnWrapper.HttpConnWrapper()
         url_parse_wrapper = urlParseWrapper.UrlParseWrapper()
@@ -35,7 +35,8 @@ class LinkChecker_CheckLinksTests(unittest.TestCase):
             [linkFilter.MailToFilter(),
                 linkFilter.DomainCheckFilter(start_link.url)])
         link_transformers = [linkTransform.RelativeLinkTransform(),
-                            linkTransform.LowerCaseTransform()]
+                            linkTransform.LowerCaseTransform(),
+                            linkTransform.EmptyPathTransform()]
         html_link_parser = htmlLinkParser.HTMLLinkParser()
         link_filter_processor = linkFilterProcessor.LinkFilterProcessor(link_filters)
         link_transform_processor = linkTransformProcessor.LinkTransformProcessor(link_transformers)
