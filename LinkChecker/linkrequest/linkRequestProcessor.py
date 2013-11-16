@@ -4,9 +4,9 @@ from . import linkRequestResult
 
 class LinkRequestProcessor:
     """Processes LinkRequest objects."""
-    def __init__(self, url_requester, response_processor):
+    def __init__(self, url_requester, response_builder):
         self._url_requester = url_requester
-        self._response_processor = response_processor
+        self._response_builder = response_builder
 
     def process_link_request(self, link_request):
         """Process LinkRequest and returns LinkRequestResult."""
@@ -17,7 +17,7 @@ class LinkRequestProcessor:
 
         response = self._url_requester.request_url(url)
 
-        response_data, result_status_code, location_header = self._response_processor.process_response(
+        response_data, result_status_code, location_header = self._response_builder.process_response(
             response, link_request.read_response)
 
         print("[{}] {}\n  --> {}\n".format(result_status_code,
