@@ -85,6 +85,9 @@ class LinkChecker:
 
             self._broken_links = self._broken_links.union(broken_links)
 
+        # done processing links
+        self._link_requester.done = True
+
     def check_links(self, start_link):
         self._link_requester.start()
         self._check_links_helper([start_link])

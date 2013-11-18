@@ -1,3 +1,4 @@
+import queue
 import threading
 
 
@@ -8,21 +9,31 @@ class LinkRequester(object):
         self._output_queue = output_queue
         self.num_worker_threads = num_worker_threads
         self.work_fn = work_fn
+        self.done = False
 
     def start(self):
         for i in range(self.num_worker_threads):
             t = threading.Thread(target=self.worker)
-            t.daemon = True
+            # want non-daemonic threads b/c we don't want these threads
+            # to be terminated abruptly; they need to hold up process
+            # exit until they complete and can clean up resources (i.e.,
+            # making web server connections)            
+            t.daemon = False
             t.start()
 
     def worker(self):
-        while True:
-            workRequest = self._input_queue.get()
-            result = self.work_fn(workRequest)
-            self._output_queue.put(result)
-            # using the built-in queue work tracking
-            # method to indicate work completed by thread
-            self._input_queue.task_done()
+        while (not self.done):
+            try:
+                # if timeout occurs, we get a Queue.Empty exception
+                workRequest = self._input_queue.get(False, 1)
+                result = self.work_fn(workRequest)
+                self._output_queue.put(result)
+                # using the built-in queue work tracking
+                # method to indicate work completed by thread
+                self._input_queue.task_done()
+            except queue.Empty:
+                # ignore
+                pass            
 
     def add_work(self, link_request):
         if (link_request is None):
