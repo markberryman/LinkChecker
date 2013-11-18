@@ -23,7 +23,7 @@ startLink = link.Link(
     "http://apigee.com/about/customers/bechtel-improving-workforce-efficiency-and-productivity-through-apis")
     #"http://www.microsoft.com")
 
-depth = 3
+depth = 2
 
 print("Starting link checking with \"{}\" and depth {}".format(
     startLink.url, depth))
