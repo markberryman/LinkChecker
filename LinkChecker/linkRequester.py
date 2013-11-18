@@ -31,7 +31,9 @@ class LinkRequester(object):
         self._input_queue.put(link_request)
 
     def get_results(self):
-        # block until all threads indicate being done
+        # block until all items added to the input queue
+        # have been "gotten" and marked as being done
+        # w/ call to "task_done()"
         self._input_queue.join()
 
         results = []
